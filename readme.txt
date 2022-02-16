@@ -1,7 +1,7 @@
 === WooCommerce Domain Registration ===
 Contributors: magicoli69
 Donate link: https://paypal.me/magicoli
-Tags: domain, dns, registrar, domain names, woocommerce
+Tags: domain, dns, registrar, domain names, domain registration, woocommerce, openprovider
 Requires at least: 4.5
 Tested up to: 5.9
 Requires PHP: 5.6
@@ -64,8 +64,6 @@ The current to-do list include:
 Because nobody asked anything yet.
 
 == Changelog ==
-
-= Unreleased =
 
 = 0.1.0 =
 

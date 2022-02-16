@@ -33,10 +33,9 @@ class WCDNR_Admin {
   * @return array $settings_tabs Array of WooCommerce setting tabs & their labels, including the Subscription tab.
   */
   public static function add_settings_tab( $settings_tabs ) {
-    $settings_tabs['wcdnr'] = __( 'Domain Names', 'wcdnr' );
+    $settings_tabs['wcdnr'] = __( 'Domain Registration', 'wcdnr' );
     return $settings_tabs;
   }
-
 
   /*
   * Uses the WooCommerce admin fields API to output settings via the @see woocommerce_admin_fields() function.
@@ -113,13 +112,6 @@ class WCDNR_Admin {
           'name'     => __( 'Prices', 'wcdnr' ),
           'type'     => 'title',
           'id'       => 'wcdnr_section_prices',
-        ),
-        array(
-          'name' => __( 'Domain registration product', 'wcdnr' ),
-          'type' => 'select',
-          // 'desc' => __( 'Must be replaced with a dynamic product picker.', 'wcdnr' ),
-          'id'   => 'wcdnr_domain_registration_product',
-          'options' => wcdnr_product_picker_array(),
         ),
         array(
           'id' => 'wcdnr_domain_margin',
