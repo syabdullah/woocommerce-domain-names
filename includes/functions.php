@@ -61,3 +61,12 @@ function wcdnr_XMLRequest($host, $method, $request) {
 
   return false;
 }
+
+function wcdnr_selling_price($price) {
+	$selling_price = $price;
+	$selling_price = $selling_price * (1 + get_option('wcdnr_domain_margin', 0) / 100);
+	$rounding = get_option('wcdnr_domain_rounding', 0);
+	if($rounding > 0)	$selling_price = ceil($selling_price / $rounding) * $rounding;
+	$selling_price = max(get_option('wcdnr_domain_minimum_price', 0), $selling_price);
+	return $selling_price;
+}

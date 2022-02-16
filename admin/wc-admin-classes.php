@@ -3,8 +3,6 @@
  * @package         WCDNR
  */
 
-require_once(__DIR__ . '/openprovider-api.php');
-
 class WCDNR_Admin {
 
   /*

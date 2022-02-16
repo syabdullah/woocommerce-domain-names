@@ -220,7 +220,58 @@ class OP_API
       $node->appendChild($dom->createTextNode(self::encode($arr)));
     }
   }
+
+  public function request($method, $request_array = [], $error_notice = true) {
+
+    $username = get_option('wcdnr_openprovider_username');
+    $hash = get_option('wcdnr_openprovider_hash');
+
+    $request = new OP_Request;
+    $request->setCommand($method)
+    ->setAuth(array('username' => $username, 'hash' => $hash))
+    ->setArgs($request_array);
+
+    $reply = $this->process($request);
+
+    if ($error_notice && $reply->getFaultCode() != 0) {
+      wc_add_notice('<p>' . $reply->getFaultString(), 'error' );
+    }
+
+    return $reply;
+  }
+
+  public function get_quote($domain, $operation='create', $period = 1) {
+
+    // $cached = wp_cache_get('domain_price_' . $domain, 'wcdnr');
+    // if($period == 1 && $cached) return $cached['price']['reseller']['price'];
+    $extension = preg_replace('/^.*\./', '', $domain);
+    $name = preg_replace("/\.$extension$/", '', $domain);
+
+    $reply = $this->request('retrievePriceDomainRequest', array(
+      'domain' => array(
+        'name' => $name,
+        'extension' => $extension,
+      ),
+      'period' => $period,
+      'operation' => $operation,
+    ));
+
+    if ($reply->getFaultCode() == 0) {
+      $result = $reply->getValue();
+      $price = $result['price']['reseller']['price'];
+      if($result['isPromotion']) {
+        $regularprice = $result['membershipPrice']['reseller']['price'];
+      } else {
+        $regularprice = $price;
+      }
+      return $regularprice;
+    }
+
+    return false;
+  }
+
 }
+
 class OP_Request
 {
   protected $cmd = null;

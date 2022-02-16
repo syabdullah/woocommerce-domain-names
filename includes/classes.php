@@ -1,6 +1,7 @@
 <?php
 
 require_once(__DIR__ . '/functions.php');
+require_once(__DIR__ . '/openprovider-api.php');
 
 /**
  * [WCDNR description]
@@ -20,6 +21,14 @@ class WCDNR {
     add_action( 'woocommerce_before_calculate_totals', __CLASS__ . '::before_calculate_totals', 10, 1 );
     add_filter( 'woocommerce_cart_item_name', __CLASS__ . '::cart_item_name', 10, 3 );
     add_action( 'woocommerce_checkout_create_order_line_item', __CLASS__ . '::add_custom_data_to_order', 10, 4 );
+    // add_action( 'admin_init', __CLASS__ . '::create_attributes' );
+    add_filter( 'wc_add_to_cart_message', __CLASS__ . '::wc_add_to_cart_message', 10, 2 );
+  }
+
+  function wc_add_to_cart_message( $message, $product_id ) {
+      // make filter magic happen here...
+      if(!empty($_POST['wcdnr_domain'])) $message = $_POST['wcdnr_domain'] . ": $message";
+      return $message;
   }
 
   public static function add_product_type_options($product_type_options) {
@@ -49,12 +58,12 @@ class WCDNR {
 
     if(!wcdnr_is_domain_product( wc_get_product( $post->ID ) )) return;
 
-    $value = isset( $_POST['wcdnr_domain'] ) ? sanitize_text_field( $_POST['wcdnr_domain'] ) : '';
+    // $value = isset( $_POST['wcdnr_domain'] ) ? sanitize_text_field( $_POST['wcdnr_domain'] ) : '';
     printf(
       '<div class="wcdnr-domain-name">
       <label for="wcdnr_domain">%s</label>
       <abbr class="required" title="required">*</abbr>
-      <input name="wcdnr_domain" value="%s"></div>',
+      <input name="wcdnr_domain" value="%s" placeholder="example.org"></div>',
       __('Domain name', 'wcdnr'),
       $value,
     );
@@ -62,12 +71,34 @@ class WCDNR {
 
   function validate_custom_field( $passed, $product_id, $quantity ) {
     if(wcdnr_is_domain_product( $product_id )) {
-      if( empty( $_POST['wcdnr_domain'] ) ) {
+      $domain = sanitize_text_field($_POST['wcdnr_domain']);
+      if( empty( $domain ) ) {
         wc_add_notice( __('Domain name is required', 'wcdnr'), 'error' );
         $passed = false;
-      } else if (wcdnr_validate_domain_name($_POST['wcdnr_domain']) == false) {
+      } else if (wcdnr_validate_domain_name($domain) == false) {
         wc_add_notice( __('Please provide a valid domain name', 'wcdnr'), 'error' );
         $passed = false;
+      } else if($passed) {
+        global $Openprovider;
+        $extension = preg_replace('/^.*\./', '', $domain);
+        $name = preg_replace("/\.$extension$/", '', $domain);
+        $reply = $Openprovider->request('checkDomainRequest', array(
+          'domains' => array(
+            array(
+              'name' => $name,
+              'extension' => $extension,
+            ),
+          ),
+          'withPrice' => true,
+        ));
+        if ($reply->getFaultCode() != 0) {
+          $passed = false;
+        } else if($reply->getValue()[0]['status'] != 'free') {
+          wc_add_notice(sprintf(__('Cannot register domain %s (%s)', 'wcdnr'), $domain, $reply->getValue()[0]['reason']), 'error');
+          $passed = false;
+        } else {
+          wp_cache_set('domain_price_' . $domain, $reply->getValue()[0], 'wcdnr');
+        }
       }
     }
     return $passed;
@@ -82,15 +113,22 @@ class WCDNR {
   * @param Boolean $quantity Quantity
   */
   function add_custom_field_item_data( $cart_item_data, $product_id, $variation_id, $quantity ) {
-    if( ! empty( $_POST['wcdnr_domain'] ) ) {
+    $domain = sanitize_text_field($_POST['wcdnr_domain']);
+
+    if( ! empty( $domain ) ) {
+      global $Openprovider;
       // Add the item data
-      $cart_item_data['domain_name'] = $_POST['wcdnr_domain'];
+      $cart_item_data['domain_name'] = $domain;
+
+      $price = $Openprovider->get_quote($domain);
+      if(!$price === false) {
+        $product = wc_get_product( $product_id ); // Expanded function
+        // $price = $product->get_price(); // Expanded function
+        $cart_item_data['total_price'] = wcdnr_selling_price($price); // Expanded function
+      }
       /**
       * TODO: Recalculate price according to tld extension
       */
-      // $product = wc_get_product( $product_id ); // Expanded function
-      // $price = $product->get_price(); // Expanded function
-      // $cart_item_data['total_price'] = $price + 100; // Expanded function
     }
     return $cart_item_data;
   }
@@ -137,6 +175,82 @@ class WCDNR {
       }
     }
   }
+
+  // /**
+  //  * Register TLD attribute taxonomy.
+  //  */
+  // function create_attributes() {
+  //   $attributes = wc_get_attribute_taxonomies();
+  //   $slugs = wp_list_pluck( $attributes, 'attribute_name' );
+  //   if ( ! in_array( 'tld', $slugs ) ) {
+  //     $args = array(
+  //       'slug'    => 'tld',
+  //       'name'   => __( 'Top-level domain', 'wcdnr' ),
+  //       'type'    => 'select',
+  //       'order_by' => 'name',
+  //       'has_archives'  => false,
+  //     );
+  //     $result = wc_create_attribute( $args );
+  //   } else {
+  //     $result = true;
+  //   }
+  //
+  //   if($result && empty(get_terms('pa_tld'))) {
+  //     $tlds = [ 'com', 'net', 'org' ];
+  //     foreach($tlds as $tld) {
+  //       if( ! term_exists( ".$tld", 'pa_tld', [ 'slug' => $tld ] ) ) {
+  //         $term_data = wp_insert_term( $tld, 'pa_tld' );
+  //         $term_id   = $term_data['term_id'];
+  //       } else {
+  //         $term_id   = get_term_by( 'name', $tld, 'pa_tld' )->term_id;
+  //       }
+  //     }
+  //   }
+  // }
+
+  // function product_add_attributes($product) {
+  //   if(is_numeric($product)) {
+  //     $product_id = $product;
+  //     $product = wc_get_product( $product_id );
+  //   }
+  //   if(!$product) return;
+  //
+  //   $attributes = (array) $product->get_attributes();
+  //
+  //   // 1. If the product attribute is set for the product
+  //   if( array_key_exists( 'pa_tld', $attributes ) ) {
+  //     foreach( $attributes as $key => $attribute ){
+  //       if( $key == 'pa_tld' ){
+  //         $options = (array) $attribute->get_options();
+  //         $options[] = $term_id;
+  //         $attribute->set_options($options);
+  //         $attributes[$key] = $attribute;
+  //         break;
+  //       }
+  //     }
+  //     $product->set_attributes( $attributes );
+  //   }
+  //   // 2. The product attribute is not set for the product
+  //   else {
+  //     $attribute = new WC_Product_Attribute();
+  //
+  //     $attribute->set_id( sizeof( $attributes) + 1 );
+  //     $attribute->set_name( 'pa_tld' );
+  //     $attribute->set_options( array( $term_id ) );
+  //     $attribute->set_position( sizeof( $attributes) + 1 );
+  //     $attribute->set_visible( false );
+  //     $attribute->set_variation( true );
+  //     $attributes[] = $attribute;
+  //
+  //     $product->set_attributes( $attributes );
+  //   }
+  //
+  //   $product->save();
+  //
+  //   // Append the new term in the product
+  //   if( ! has_term( $term_name, 'pa_tld', $product_id ))
+  //   wp_set_object_terms($product_id, $term_slug, 'pa_tld', true );
+  // }
 }
 
 WCDNR::init();
