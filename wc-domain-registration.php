@@ -2,7 +2,7 @@
 /**
  * Plugin Name:     WooCommerce Domain Registration
  * Plugin URI:      https://magiiic.com/wordpress/wcdnr/
- * Description:     WooCommerce additions for domain resellers.
+ * Description:     WooCommerce domain registration products for Openprovider.
  * Author:          Magiiic
  * Author URI:      https://magiiic.com/
  * Text Domain:     wcdnr
