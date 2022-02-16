@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:     WooCommerce Domain Registration
- * Plugin URI:      https://magiiic.com/wordpress/wcdnr/
+ * Plugin URI:      https://github.com/magicoli/wc-domain-registration
  * Description:     WooCommerce domain registration products for Openprovider.
  * Author:          Magiiic
  * Author URI:      https://magiiic.com/
