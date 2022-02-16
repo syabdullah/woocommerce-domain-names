@@ -1,10 +1,7 @@
 ## Installation
 
-This section describes how to install the plugin and get it working.
-
-e.g.
-
-1. Upload `plugin-name.php` to the `/wp-content/plugins/` directory
-1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Place `<?php do_action('plugin_name_hook'); ?>` in your templates
+1. Install WooCommerce. Optionally install WooCommerce Subscriptions (recommended).
+2. Install the plugin as usual (download, unzip content in wp-content/plugins/ directory and activate).
+3. Go to WooCommerce settings > Domain registration, fill Openprovider credentials and save. Setup margin, rounding and minimum price on the same page.
+4. Create a domain registration product, check "virtual" and "Domain name" in product data options and set the base display price (the actual price will be set for each order)
 
