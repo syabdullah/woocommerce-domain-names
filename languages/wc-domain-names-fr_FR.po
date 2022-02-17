@@ -1,0 +1,126 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Domain Names 0.1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wc-domain-names\n"
+"Last-Translator: Olivier van Helden <olivier@van-helden.net>\n"
+"Language-Team: Magiiic <info@magiiic.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2022-02-16T21:18:46-04:00\n"
+"PO-Revision-Date: 2022-02-16 21:19-0400\n"
+"Language: fr_FR\n"
+"X-Generator: Poedit 2.4.2\n"
+
+#. Plugin Name of the plugin
+msgid "WooCommerce Domain Names"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://github.com/magicoli/wc-domain-names"
+msgstr ""
+
+#. Description of the plugin
+msgid "WooCommerce domain names products and tools for Openprovider."
+msgstr ""
+
+#. Author of the plugin
+msgid "Magiiic"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://magiiic.com/"
+msgstr ""
+
+#: admin/wc-admin-classes.php:24
+msgid "Settings"
+msgstr ""
+
+#: admin/wc-admin-classes.php:36
+msgid "Domain Names"
+msgstr ""
+
+#: admin/wc-admin-classes.php:71
+msgid "Openprovider connection"
+msgstr ""
+
+#: admin/wc-admin-classes.php:76
+msgid "Find your credentials in Openprovider dashboard %s"
+msgstr ""
+
+#: admin/wc-admin-classes.php:82
+msgid "Account"
+msgstr ""
+
+#: admin/wc-admin-classes.php:83
+msgid "Account overview"
+msgstr ""
+
+#: admin/wc-admin-classes.php:84
+msgid "Contact persons"
+msgstr ""
+
+#: admin/wc-admin-classes.php:91
+msgid "Username"
+msgstr ""
+
+#: admin/wc-admin-classes.php:98
+msgid "Hash"
+msgstr ""
+
+#: admin/wc-admin-classes.php:112
+msgid "Prices"
+msgstr ""
+
+#: admin/wc-admin-classes.php:118
+msgid "Minimum margin (%)"
+msgstr ""
+
+#: admin/wc-admin-classes.php:125
+msgid "Minimum price (%s)"
+msgstr ""
+
+#: admin/wc-admin-classes.php:132
+msgid "Rounding (%s)"
+msgstr ""
+
+#: admin/wc-admin-classes.php:155
+msgid "Custom Product Text Field"
+msgstr ""
+
+#: admin/wc-admin-classes.php:164
+msgid "Custom Product Number Field"
+msgstr ""
+
+#: admin/wc-admin-classes.php:177
+msgid "Custom Product Textarea"
+msgstr ""
+
+#: admin/wc-admin-classes.php:212
+msgid "%s needs Openprovider credentials to function properly."
+msgstr ""
+
+#: includes/classes.php:67
+#: includes/classes.php:174
+msgid "Domain name"
+msgstr ""
+
+#: includes/classes.php:76
+msgid "Domain name is required"
+msgstr ""
+
+#: includes/classes.php:79
+msgid "Please provide a valid domain name"
+msgstr ""
+
+#: includes/classes.php:97
+msgid "Cannot register domain %s (%s)"
+msgstr ""
+
+#: includes/functions.php:29
+msgid "No products found"
+msgstr ""
+
+#: includes/functions.php:31
+msgid "Select a product"
+msgstr ""
