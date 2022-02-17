@@ -15,7 +15,8 @@ WooCommerce products and tools for domain names resellers.
 
 This plugin is designed for domain names resellers. Currently, it only provides the sale part, actual registration has to be done manually.
 
-* Requires [WooCommerce](https://wordpress.org/plugins/woocommerce/) and an [Openprovider](https://openprovider.com/) account.
+* Requires [WooCommerce](https://wordpress.org/plugins/woocommerce/).
+* Requires [Openprovider](https://openprovider.com/) account.
 * Compatible with [WooCommerce Subscriptions](https://woocommerce.com/products/woocommerce-subscriptions/).
 
 = Features =
