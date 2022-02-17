@@ -65,6 +65,9 @@ Because nobody asked anything yet.
 
 == Changelog ==
 
+= 0.1.2 =
+* added package updater
+
 = 0.1.1 =
 * added fr, nl and de translations
 * renamed as "WooCommerce Domain Names", which reflects better the actual features
