@@ -23,9 +23,12 @@ class WCDNR {
     add_filter( 'woocommerce_cart_item_name', __CLASS__ . '::cart_item_name', 10, 3 );
     add_action( 'woocommerce_checkout_create_order_line_item', __CLASS__ . '::add_custom_data_to_order', 10, 4 );
     // add_action( 'admin_init', __CLASS__ . '::create_attributes' );
-    add_filter( 'wc_add_to_cart_message', __CLASS__ . '::wc_add_to_cart_message', 10, 2 );
+    add_filter( 'wc_add_to_cart_message', __CLASS__ . '::add_to_cart_message', 10, 2 );
 
     add_action( 'plugins_loaded', __CLASS__ . '::load_plugin_textdomain' );
+
+    add_filter('woocommerce_product_add_to_cart_text', __CLASS__ . '::add_to_card_button', 10, 2);
+    add_filter('woocommerce_product_single_add_to_cart_text', __CLASS__ . '::single_add_to_card_button', 10, 2);
   }
 
   public function load_plugin_textdomain() {
@@ -36,7 +39,17 @@ class WCDNR {
 		);
 	}
 
-  function wc_add_to_cart_message( $message, $product_id ) {
+  function add_to_card_button( $text, $product ) {
+    if($product->get_meta( '_domainname' ) == 'yes') $text = _x('Register domain', 'An unspecified domain name (in products list)', 'wcdnr');
+  	return $text;
+  }
+
+  function single_add_to_card_button( $text, $product ) {
+    if($product->get_meta( '_domainname' ) == 'yes') $text = _x('Register domain name', 'The given domain name (on single product page, under name field)', 'wcdnr');
+  	return $text;
+  }
+
+  function add_to_cart_message( $message, $product_id ) {
       // make filter magic happen here...
       if(!empty($_POST['wcdnr_domain'])) $message = $_POST['wcdnr_domain'] . ": $message";
       return $message;
