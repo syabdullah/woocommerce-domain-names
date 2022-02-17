@@ -88,17 +88,17 @@ msgstr "Arrondi (%s)"
 msgid "%s needs Openprovider credentials to function properly."
 msgstr "%s a besoin des informations d'identification d'Openprovider pour fonctionner correctement."
 
-#: includes/classes.php:49
-#: includes/classes.php:78
-#: includes/classes.php:185
+#: includes/classes.php:62
+#: includes/classes.php:91
+#: includes/classes.php:198
 msgid "Domain name"
 msgstr "Nom de domaine"
 
-#: includes/classes.php:87
+#: includes/classes.php:100
 msgid "Domain name is required"
 msgstr "Le nom de domaine est requis"
 
-#: includes/classes.php:90
+#: includes/classes.php:103
 msgid "Please provide a valid domain name"
 msgstr "Veuillez fournir un nom de domaine valide"
 
@@ -110,7 +110,7 @@ msgstr "Aucun produit trouvé"
 msgid "Select a product"
 msgstr "Sélectionnez un produit"
 
-#: includes/classes.php:50
+#: includes/classes.php:63
 msgid "Check to use this product for domain name registration."
 msgstr "Cochez pour utiliser ce produit pour l'enregistrement de noms de domaine."
 
@@ -124,13 +124,23 @@ msgstr "Nom réservé par l'IANA"
 
 #: includes/openprovider-api.php:614
 msgid "Domain exists"
-msgstr "Le domaine existe"
+msgstr "Le nom domaine existe"
 
-#: includes/classes.php:108
+#: includes/classes.php:121
 msgid "Cannot register domain %1$s (%2$s)"
 msgstr "Impossible d'enregistrer le domaine %1$s (%2$s)"
 
 #: includes/openprovider-api.php:512
 msgid "API is temporarily unavailable due to maintenance"
 msgstr "L'API est temporairement indisponible pour cause de maintenance"
+
+#: includes/classes.php:43
+msgctxt "An unspecified domain name (in products list)"
+msgid "Register domain"
+msgstr "Enregistrer un nom de domaine"
+
+#: includes/classes.php:48
+msgctxt "The given domain name (on single product page, under name field)"
+msgid "Register domain name"
+msgstr "Enregistrer le nom de domaine"
 
