@@ -10,6 +10,11 @@
  * Version:         0.1.2
  *
  * @package         WCDNR
+ *
+ * Icon1x: https://github.com/magicoli/wc-domain-names/raw/master/assets/icon-128x128.png
+ * Icon2x: https://github.com/magicoli/wc-domain-names/raw/master/assets/icon-256x256.png
+ * BannerHigh: https://github.com/magicoli/wc-domain-names/raw/master/assets/banner-1544x500.jpg
+ * BannerLow: https://github.com/magicoli/wc-domain-names/raw/master/assets/banner-772x250.jpg
  */
 
 define('WCDNR_PLUGIN', plugin_basename(__FILE__));
