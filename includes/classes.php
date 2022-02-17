@@ -12,8 +12,9 @@ class WCDNR {
   * Bootstraps the class and hooks required actions & filters.
   */
   public static function init() {
-    add_filter("product_type_options", __CLASS__ . '::add_product_type_options');
-    add_action("save_post_product", __CLASS__ . '::save_product_type_options', 10, 3);
+
+    add_filter( 'product_type_options', __CLASS__ . '::add_product_type_options');
+    add_action( 'save_post_product', __CLASS__ . '::save_product_type_options', 10, 3);
 
     add_action( 'woocommerce_before_add_to_cart_button', __CLASS__ . '::display_custom_field' );
     add_filter( 'woocommerce_add_to_cart_validation', __CLASS__ . '::validate_custom_field', 10, 3 );
@@ -23,7 +24,17 @@ class WCDNR {
     add_action( 'woocommerce_checkout_create_order_line_item', __CLASS__ . '::add_custom_data_to_order', 10, 4 );
     // add_action( 'admin_init', __CLASS__ . '::create_attributes' );
     add_filter( 'wc_add_to_cart_message', __CLASS__ . '::wc_add_to_cart_message', 10, 2 );
+
+    add_action( 'plugins_loaded', __CLASS__ . '::load_plugin_textdomain' );
   }
+
+  public function load_plugin_textdomain() {
+		load_plugin_textdomain(
+			'wcdnr',
+			false,
+			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
+		);
+	}
 
   function wc_add_to_cart_message( $message, $product_id ) {
       // make filter magic happen here...
@@ -35,8 +46,8 @@ class WCDNR {
     $product_type_options["domainname"] = array(
       "id"            => "_domainname",
       "wrapper_class" => "show_if_simple show_if_variable",
-      "label"         => "Domain name",
-      "description"   => "Check to use this product for domain name registration.",
+      "label"         => __('Domain name', 'wcdnr'),
+      "description"   => __('Check to use this product for domain name registration.', 'wcdnr'),
       "default"       => "no",
     );
     return $product_type_options;
@@ -94,7 +105,7 @@ class WCDNR {
         if ($reply->getFaultCode() != 0) {
           $passed = false;
         } else if($reply->getValue()[0]['status'] != 'free') {
-          wc_add_notice(sprintf(__('Cannot register domain %s (%s)', 'wcdnr'), $domain, $reply->getValue()[0]['reason']), 'error');
+          wc_add_notice(sprintf(__('Cannot register domain %1$s (%2$s)', 'wcdnr'), $domain, __($reply->getValue()[0]['reason'], 'wcdnr')), 'error');
           $passed = false;
         } else {
           wp_cache_set('domain_price_' . $domain, $reply->getValue()[0], 'wcdnr');

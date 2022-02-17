@@ -1,34 +1,34 @@
 msgid ""
 msgstr ""
+"Project-Id-Version: WooCommerce Domain Names\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wc-domain-names\n"
+"Last-Translator: Olivier van Helden <olivier@van-helden.net>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: POEditor.com\n"
-"Project-Id-Version: WooCommerce Domain Names\n"
+"POT-Creation-Date: 2022-02-16T22:16:36-04:00\n"
+"PO-Revision-Date: \n"
 "Language: de\n"
+"X-Generator: Poedit 2.4.2\n"
 
 #. Plugin Name of the plugin
-#: 
 msgid "WooCommerce Domain Names"
 msgstr "WooCommerce Domain-Namen"
 
 #. Plugin URI of the plugin
-#: 
 msgid "https://github.com/magicoli/wc-domain-names"
 msgstr "https://github.com/magicoli/wc-domain-names"
 
 #. Description of the plugin
-#: 
 msgid "WooCommerce domain names products and tools for Openprovider."
 msgstr "WooCommerce Domainnamen Produkte und Tools für Openprovider."
 
 #. Author of the plugin
-#: 
 msgid "Magiiic"
 msgstr "Magische"
 
 #. Author URI of the plugin
-#: 
 msgid "https://magiiic.com/"
 msgstr "https://magiiic.com/"
 
@@ -84,38 +84,31 @@ msgstr "Mindestpreis (%s)"
 msgid "Rounding (%s)"
 msgstr "Rundung (%s)"
 
-#: admin/wc-admin-classes.php:155
-msgid "Custom Product Text Field"
-msgstr "Benutzerdefiniertes Produkttextfeld"
-
-#: admin/wc-admin-classes.php:164
-msgid "Custom Product Number Field"
-msgstr "Benutzerdefiniertes Produktnummernfeld"
-
-#: admin/wc-admin-classes.php:177
-msgid "Custom Product Textarea"
-msgstr "Benutzerdefiniertes Produkt Textarea"
-
-#: admin/wc-admin-classes.php:212
+#: admin/wc-admin-classes.php:158
 msgid "%s needs Openprovider credentials to function properly."
 msgstr "%s benötigt Openprovider-Anmeldeinformationen, um ordnungsgemäß zu funktionieren."
 
-#: includes/classes.php:67
-#: includes/classes.php:174
+#: includes/classes.php:49
+#: includes/classes.php:78
+#: includes/classes.php:185
 msgid "Domain name"
 msgstr "Domänenname"
 
-#: includes/classes.php:76
+#: includes/classes.php:50
+msgid "Check to use this product for domain name registration."
+msgstr ""
+
+#: includes/classes.php:87
 msgid "Domain name is required"
 msgstr "Domänenname ist erforderlich"
 
-#: includes/classes.php:79
+#: includes/classes.php:90
 msgid "Please provide a valid domain name"
 msgstr "Bitte geben Sie einen gültigen Domainnamen an"
 
-#: includes/classes.php:97
-msgid "Cannot register domain %s (%s)"
-msgstr "Domäne %s kann nicht registriert werden (%s)"
+#: includes/classes.php:108
+msgid "Cannot register domain %1$s (%2$s)"
+msgstr "Domäne %1$s kann nicht registriert werden (%2$s)"
 
 #: includes/functions.php:29
 msgid "No products found"
@@ -125,3 +118,23 @@ msgstr "Keine Produkte gefunden"
 msgid "Select a product"
 msgstr "Wählen Sie ein Produkt"
 
+#: includes/openprovider-api.php:612
+msgid "Your domain request contains an invalid extension!"
+msgstr ""
+
+#: includes/openprovider-api.php:613
+msgid "Name reserved by IANA"
+msgstr ""
+
+#: includes/openprovider-api.php:614
+msgid "Domain exists"
+msgstr ""
+
+#~ msgid "Custom Product Text Field"
+#~ msgstr "Benutzerdefiniertes Produkttextfeld"
+
+#~ msgid "Custom Product Number Field"
+#~ msgstr "Benutzerdefiniertes Produktnummernfeld"
+
+#~ msgid "Custom Product Textarea"
+#~ msgstr "Benutzerdefiniertes Produkt Textarea"

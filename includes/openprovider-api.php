@@ -9,6 +9,7 @@ class OP_API
   protected $timeout = null;
   protected $debug = null;
   static public $encoding = 'UTF-8';
+
   public function __construct ($url = null, $timeout = 1000)
   {
     $this->url = $url;
@@ -508,7 +509,7 @@ class OP_Reply
     if ((!is_array($arr) && trim($arr) == '') ||
     $arr['reply']['code'] == 4005)
     {
-      throw new OP_API_Exception("API is temporarily unavailable due to maintenance", 4005);
+      throw new OP_API_Exception(__("API is temporarily unavailable due to maintenance", 'wcdnr'), 4005);
     }
 
     $this->faultCode = (int) $arr['reply']['code'];
@@ -601,6 +602,17 @@ class OP_Reply
       $f->filter($this);
     }
     return $dom->saveXML();
+  }
+
+  /**
+   * Factice function to add the registrar response strings to localization.
+   */
+  function localization_strings() {
+      $strings=array(
+        __('Your domain request contains an invalid extension!', 'wcdnr'),
+        __('Name reserved by IANA', 'wcdnr'),
+        __('Domain exists', 'wcdnr'),
+      );
   }
 }
 
