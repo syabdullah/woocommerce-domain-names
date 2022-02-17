@@ -36,7 +36,7 @@ class WCDNR {
       "id"            => "_domainname",
       "wrapper_class" => "show_if_simple show_if_variable",
       "label"         => "Domain name",
-      "description"   => "Check to use this product for domain registration.",
+      "description"   => "Check to use this product for domain name registration.",
       "default"       => "no",
     );
     return $product_type_options;

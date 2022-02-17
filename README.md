@@ -1,4 +1,4 @@
-# WooCommerce Domain Registration
+# WooCommerce Domain Names
 * Contributors: magicoli69
 * Donate link: https://paypal.me/magicoli
 * Tags: domain, dns, registrar, domain names, domain registration, woocommerce, openprovider

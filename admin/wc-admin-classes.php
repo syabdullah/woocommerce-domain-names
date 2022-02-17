@@ -33,7 +33,7 @@ class WCDNR_Admin {
   * @return array $settings_tabs Array of WooCommerce setting tabs & their labels, including the Subscription tab.
   */
   public static function add_settings_tab( $settings_tabs ) {
-    $settings_tabs['wcdnr'] = __( 'Domain Registration', 'wcdnr' );
+    $settings_tabs['wcdnr'] = __( 'Domain Names', 'wcdnr' );
     return $settings_tabs;
   }
 

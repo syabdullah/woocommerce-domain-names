@@ -1,4 +1,4 @@
-=== WooCommerce Domain Registration ===
+=== WooCommerce Domain Names ===
 Contributors: magicoli69
 Donate link: https://paypal.me/magicoli
 Tags: domain, dns, registrar, domain names, domain registration, woocommerce, openprovider
@@ -9,11 +9,11 @@ Stable tag: 0.1.0
 License: AGPLv3 or later
 License URI: https://www.gnu.org/licenses/agpl-3.0.html
 
-Domain registration for resellers using WooCommerce and Openprovider registrar.
+WooCommerce products and tools for domain names resellers.
 
 == Description ==
 
-This plugin is designed for domain resellers. Currently, it only provides the sale part, actual registration has to be done manually.
+This plugin is designed for domain names resellers. Currently, it only provides the sale part, actual registration has to be done manually.
 
 * Requires [WooCommerce](https://wordpress.org/plugins/woocommerce/) and an [Openprovider](https://openprovider.com/) account.
 * Compatible with [WooCommerce Subscriptions](https://woocommerce.com/products/woocommerce-subscriptions/).
@@ -39,7 +39,7 @@ The goal is to implement an easy bridge between WooCommerce and Openprovider, al
 
 The current to-do list include:
 
-* Actual domain registration via registrar API
+* Actual domain name registration via registrar API
 * Actual domain renewal after subscription renewal payment
 * Migrate existing domains from former billing solution
 * Reminders before domain expiration
@@ -53,8 +53,8 @@ The current to-do list include:
 == Installation ==
 
 1. Install and activate [WooCommerce](https://wordpress.org/plugins/woocommerce/ plugin. Optionally install WooCommerce Subscriptions (recommended).
-2. Download [the latest stable release](https://github.com/magicoli/wc-domain-registration/releases/latest), unzip, rename as wp-content/plugins/wc-domain-registration and go to WP plugins page to activate).
-3. In WooCommerce settings > Domain registration, fill Openprovider credentials and save. Setup margin, rounding and minimum price on the same page.
+2. Download [the latest stable release](https://github.com/magicoli/wc-domain-names/releases/latest), unzip, rename as wp-content/plugins/wc-domain-names and go to WP plugins page to activate).
+3. In WooCommerce settings > Domain names, fill Openprovider credentials and save. Setup margin, rounding and minimum price on the same page.
 4. Create a product, check "virtual" and "Domain name" in product data options and set the base display price (the actual price will be set for each order)
 
 == Frequently Asked Questions ==
