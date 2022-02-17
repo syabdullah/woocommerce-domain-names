@@ -65,6 +65,10 @@ Because nobody asked anything yet.
 
 == Changelog ==
 
+= 0.1.1 =
+* added fr, nl and de translations
+* renamed as "WooCommerce Domain Names", which reflects better the actual features
+
 = 0.1.0 =
 
 * "Domain name" product type

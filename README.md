@@ -9,11 +9,11 @@
 * License: AGPLv3 or later
 * License URI: https://www.gnu.org/licenses/agpl-3.0.html
 
-Domain registration for resellers using WooCommerce and Openprovider registrar.
+WooCommerce products and tools for domain names resellers.
 
 ## Description
 
-This plugin is designed for domain resellers. Currently, it only provides the sale part, actual registration has to be done manually.
+This plugin is designed for domain names resellers. Currently, it only provides the sale part, actual registration has to be done manually.
 
 * Requires [WooCommerce](https://wordpress.org/plugins/woocommerce/) and an [Openprovider](https://openprovider.com/) account.
 * Compatible with [WooCommerce Subscriptions](https://woocommerce.com/products/woocommerce-subscriptions/).
@@ -39,7 +39,7 @@ The goal is to implement an easy bridge between WooCommerce and Openprovider, al
 
 The current to-do list include:
 
-* Actual domain registration via registrar API
+* Actual domain name registration via registrar API
 * Actual domain renewal after subscription renewal payment
 * Migrate existing domains from former billing solution
 * Reminders before domain expiration
