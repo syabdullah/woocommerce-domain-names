@@ -88,17 +88,17 @@ msgstr "Afronding (%s)"
 msgid "%s needs Openprovider credentials to function properly."
 msgstr "%s heeft Openprovider credentials nodig om goed te functioneren."
 
-#: includes/classes.php:49
-#: includes/classes.php:78
-#: includes/classes.php:185
+#: includes/classes.php:62
+#: includes/classes.php:91
+#: includes/classes.php:198
 msgid "Domain name"
 msgstr "Domeinnaam"
 
-#: includes/classes.php:87
+#: includes/classes.php:100
 msgid "Domain name is required"
 msgstr "Domeinnaam is vereist"
 
-#: includes/classes.php:90
+#: includes/classes.php:103
 msgid "Please provide a valid domain name"
 msgstr "Geef een geldige domeinnaam op"
 
@@ -110,7 +110,7 @@ msgstr "Geen producten gevonden"
 msgid "Select a product"
 msgstr "Kies een product"
 
-#: includes/classes.php:50
+#: includes/classes.php:63
 msgid "Check to use this product for domain name registration."
 msgstr "Vink aan om dit product te gebruiken voor domeinnaam registratie."
 
@@ -123,14 +123,27 @@ msgid "Name reserved by IANA"
 msgstr "Naam gereserveerd door IANA"
 
 #: includes/openprovider-api.php:614
+#, fuzzy
 msgid "Domain exists"
 msgstr "Domein bestaat"
 
-#: includes/classes.php:108
+#: includes/classes.php:121
 msgid "Cannot register domain %1$s (%2$s)"
 msgstr "Kan domein %1$s niet registreren (%2$s)"
 
 #: includes/openprovider-api.php:512
 msgid "API is temporarily unavailable due to maintenance"
 msgstr "API is tijdelijk niet beschikbaar wegens onderhoud"
+
+#: includes/classes.php:43
+#, fuzzy
+msgctxt "An unspecified domain name (in products list)"
+msgid "Register domain"
+msgstr "Domeinnaam registreren"
+
+#: includes/classes.php:48
+#, fuzzy
+msgctxt "The given domain name (on single product page, under name field)"
+msgid "Register domain name"
+msgstr "Domeinnaam registreren"
 
