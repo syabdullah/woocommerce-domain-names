@@ -1,126 +1,127 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Domain Names 0.1.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wc-domain-names\n"
-"Last-Translator: Olivier van Helden <olivier@van-helden.net>\n"
-"Language-Team: Magiiic <info@magiiic.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-02-16T21:18:46-04:00\n"
-"PO-Revision-Date: 2022-02-16 21:19-0400\n"
-"Language: nl_NL\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: POEditor.com\n"
+"Project-Id-Version: WooCommerce Domain Names\n"
+"Language: nl\n"
 
 #. Plugin Name of the plugin
+#: 
 msgid "WooCommerce Domain Names"
-msgstr ""
+msgstr "WooCommerce Domein Namen"
 
 #. Plugin URI of the plugin
+#: 
 msgid "https://github.com/magicoli/wc-domain-names"
-msgstr ""
+msgstr "https://github.com/magicoli/wc-domain-names"
 
 #. Description of the plugin
+#: 
 msgid "WooCommerce domain names products and tools for Openprovider."
-msgstr ""
+msgstr "WooCommerce domeinnamen producten en tools voor Openprovider."
 
 #. Author of the plugin
+#: 
 msgid "Magiiic"
-msgstr ""
+msgstr "Magiiic"
 
 #. Author URI of the plugin
+#: 
 msgid "https://magiiic.com/"
-msgstr ""
+msgstr "https://magiiic.com/"
 
 #: admin/wc-admin-classes.php:24
 msgid "Settings"
-msgstr ""
+msgstr "Instellingen"
 
 #: admin/wc-admin-classes.php:36
 msgid "Domain Names"
-msgstr ""
+msgstr "Domeinnamen"
 
 #: admin/wc-admin-classes.php:71
 msgid "Openprovider connection"
-msgstr ""
+msgstr "Openprovider verbinding"
 
 #: admin/wc-admin-classes.php:76
 msgid "Find your credentials in Openprovider dashboard %s"
-msgstr ""
+msgstr "Zoek uw referenties in Openprovider dashboard %s"
 
 #: admin/wc-admin-classes.php:82
 msgid "Account"
-msgstr ""
+msgstr "Rekening"
 
 #: admin/wc-admin-classes.php:83
 msgid "Account overview"
-msgstr ""
+msgstr "Rekeningoverzicht"
 
 #: admin/wc-admin-classes.php:84
 msgid "Contact persons"
-msgstr ""
+msgstr "Contactpersonen"
 
 #: admin/wc-admin-classes.php:91
 msgid "Username"
-msgstr ""
+msgstr "Gebruikersnaam"
 
 #: admin/wc-admin-classes.php:98
 msgid "Hash"
-msgstr ""
+msgstr "Hash"
 
 #: admin/wc-admin-classes.php:112
 msgid "Prices"
-msgstr ""
+msgstr "Prijzen"
 
 #: admin/wc-admin-classes.php:118
 msgid "Minimum margin (%)"
-msgstr ""
+msgstr "Minimum marge (%)"
 
 #: admin/wc-admin-classes.php:125
 msgid "Minimum price (%s)"
-msgstr ""
+msgstr "Minimumprijs (%)"
 
 #: admin/wc-admin-classes.php:132
 msgid "Rounding (%s)"
-msgstr ""
+msgstr "Afronding (%s)"
 
 #: admin/wc-admin-classes.php:155
 msgid "Custom Product Text Field"
-msgstr ""
+msgstr "Aangepast product tekstveld"
 
 #: admin/wc-admin-classes.php:164
 msgid "Custom Product Number Field"
-msgstr ""
+msgstr "Aangepast productnummer veld"
 
 #: admin/wc-admin-classes.php:177
 msgid "Custom Product Textarea"
-msgstr ""
+msgstr "Aangepast product tekstgebied"
 
 #: admin/wc-admin-classes.php:212
 msgid "%s needs Openprovider credentials to function properly."
-msgstr ""
+msgstr "%s heeft Openprovider credentials nodig om goed te functioneren."
 
 #: includes/classes.php:67
 #: includes/classes.php:174
 msgid "Domain name"
-msgstr ""
+msgstr "Domeinnaam"
 
 #: includes/classes.php:76
 msgid "Domain name is required"
-msgstr ""
+msgstr "Domeinnaam is vereist"
 
 #: includes/classes.php:79
 msgid "Please provide a valid domain name"
-msgstr ""
+msgstr "Geef een geldige domeinnaam op"
 
 #: includes/classes.php:97
 msgid "Cannot register domain %s (%s)"
-msgstr ""
+msgstr "Kan domein %s (%s) niet registreren"
 
 #: includes/functions.php:29
 msgid "No products found"
-msgstr ""
+msgstr "Geen producten gevonden"
 
 #: includes/functions.php:31
 msgid "Select a product"
-msgstr ""
+msgstr "Kies een product"
+
