@@ -66,8 +66,9 @@ Because nobody asked anything yet.
 
 == Changelog ==
 
-= 0.1.3 =
+= 0.1.3.1 =
 * renamed as woocommerce-domain-names (hopefully the last rename, to match my other wc plugins naming)
+* updated assets
 
 = 0.1.2 =
 * added package updater

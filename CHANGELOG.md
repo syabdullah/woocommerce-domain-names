@@ -1,5 +1,8 @@
 ## Changelog
 
+### 0.1.3.1
+* updated assets
+
 ### 0.1.3
 * renamed as woocommerce-domain-names (hopefully the last rename, to match my other wc plugins naming)
 
