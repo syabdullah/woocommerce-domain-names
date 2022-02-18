@@ -14,8 +14,8 @@ msgstr "WooCommerce Domein Namen"
 
 #. Plugin URI of the plugin
 #: 
-msgid "https://github.com/magicoli/wc-domain-names"
-msgstr "https://github.com/magicoli/wc-domain-names"
+msgid "https://github.com/magicoli/woocommerce-domain-names"
+msgstr "https://github.com/magicoli/woocommerce-domain-names"
 
 #. Description of the plugin
 #: 

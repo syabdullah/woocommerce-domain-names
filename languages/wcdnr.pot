@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WooCommerce Domain Names 0.1.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wc-domain-names\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-domain-names\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgid "WooCommerce Domain Names"
 msgstr ""
 
 #. Plugin URI of the plugin
-msgid "https://github.com/magicoli/wc-domain-names"
+msgid "https://github.com/magicoli/woocommerce-domain-names"
 msgstr ""
 
 #. Description of the plugin
