@@ -12,23 +12,24 @@ class WCDNR {
   * Bootstraps the class and hooks required actions & filters.
   */
   public static function init() {
-
     add_filter( 'product_type_options', __CLASS__ . '::add_product_type_options');
     add_action( 'save_post_product', __CLASS__ . '::save_product_type_options', 10, 3);
 
     add_action( 'woocommerce_before_add_to_cart_button', __CLASS__ . '::display_custom_field' );
     add_filter( 'woocommerce_add_to_cart_validation', __CLASS__ . '::validate_custom_field', 10, 3 );
+    add_filter( 'woocommerce_add_cart_item', __CLASS__ . '::add_cart_item', 20 );
     add_filter( 'woocommerce_add_cart_item_data', __CLASS__ . '::add_custom_field_item_data', 10, 4 );
     add_action( 'woocommerce_before_calculate_totals', __CLASS__ . '::before_calculate_totals', 10, 1 );
     add_filter( 'woocommerce_cart_item_name', __CLASS__ . '::cart_item_name', 10, 3 );
     add_action( 'woocommerce_checkout_create_order_line_item', __CLASS__ . '::add_custom_data_to_order', 10, 4 );
     // add_action( 'admin_init', __CLASS__ . '::create_attributes' );
     add_filter( 'wc_add_to_cart_message', __CLASS__ . '::add_to_cart_message', 10, 2 );
+    add_filter( 'woocommerce_get_price_html', __CLASS__ . '::get_price_html', 10, 2 );
 
     add_action( 'plugins_loaded', __CLASS__ . '::load_plugin_textdomain' );
 
-    add_filter('woocommerce_product_add_to_cart_text', __CLASS__ . '::add_to_card_button', 10, 2);
-    add_filter('woocommerce_product_single_add_to_cart_text', __CLASS__ . '::single_add_to_card_button', 10, 2);
+    add_filter( 'woocommerce_product_add_to_cart_text', __CLASS__ . '::add_to_card_button', 10, 2);
+    add_filter( 'woocommerce_product_single_add_to_cart_text', __CLASS__ . '::single_add_to_card_button', 10, 2);
   }
 
   public function load_plugin_textdomain() {
@@ -81,15 +82,19 @@ class WCDNR {
     // if($product->get_meta( '_domainname' ) != 'yes') return;
 
     if(!wcdnr_is_domain_product( wc_get_product( $post->ID ) )) return;
-
     // $value = isset( $_POST['wcdnr_domain'] ) ? sanitize_text_field( $_POST['wcdnr_domain'] ) : '';
     printf(
-      '<div class="wcdnr-domain-name">
-      <label for="wcdnr_domain">%s</label>
-      <abbr class="required" title="required">*</abbr>
-      <input name="wcdnr_domain" value="%s" placeholder="example.org"></div>',
+      '<div class="wcdnr-field wcdnr-field-domain-name">
+        <label for="wcdnr_domain">%s</label>
+        <abbr class="required" title="required">*</abbr>
+        <p class="form-row form-row-wide">
+          <input class="input-text" name="wcdnr_domain" value="%s" placeholder="example.org">
+        </p>
+        <p class=description>%s</p>
+      </div>',
       __('Domain name', 'wcdnr'),
       $value,
+      __('Actual domain name price will be displayed in the shopping cart, before order validation and payment.', 'wdnr'),
     );
   }
 
@@ -148,28 +153,46 @@ class WCDNR {
       if(!$price === false) {
         $product = wc_get_product( $product_id ); // Expanded function
         // $price = $product->get_price(); // Expanded function
-        $cart_item_data['total_price'] = wcdnr_selling_price($price); // Expanded function
+        $cart_item_data['domain_price'] = wcdnr_selling_price($price); // Expanded function
       }
-      /**
-      * TODO: Recalculate price according to tld extension
-      */
     }
     return $cart_item_data;
   }
 
+  public function add_cart_item( $cart_item ) {
+    if( isset( $cart_item['domain_price'] ) ) {
+      // $cart_item['data']->adjust_price( $cart_item['domain_price'] );
+
+      // $price = (float) $cart_item_data['data']->get_price( 'edit' );
+      // $cart_item_data['data']->set_price( $price + $cart_item_data['domain_price'] );
+      // $value['data']->set_price( ( $price ) );
+    }
+    // error_log('$cart_item_data ' . print_r($cart_item_data, true));
+    return $cart_item;
+  }
   /**
   * Update the price in the cart
   * @since 1.0.0
   */
-  function before_calculate_totals( $cart_obj ) {
+  function before_calculate_totals( $cart ) {
     if ( is_admin() && ! defined( 'DOING_AJAX' ) ) {
       return;
     }
     // Iterate through each cart item
-    foreach( $cart_obj->get_cart() as $key=>$value ) {
-      if( isset( $value['total_price'] ) ) {
-        $price = $value['total_price'];
-        $value['data']->set_price( ( $price ) );
+    foreach( $cart->get_cart() as $cart_key => $cart_item ) {
+      $cached = wp_cache_get('wcdnr_cart_item_processed_' . $cart_key, 'wcdnr');
+      if(!$cached) {
+        if( is_numeric( $cart_item['domain_price'] &! $cart_item['domain_price_added']) ) {
+          $price = (float)$cart_item['data']->get_price( 'edit' );
+          $total = $price + $cart_item['domain_price'];
+          error_log('adding ' . $cart_item['domain_price']
+          . "\n" . 'initial price ' . $price
+          . "\n" . 'adjusted price ' . $total);
+          // $cart_item['data']->adjust_price( $cart_item['domain_price'] );
+          $cart_item['data']->set_price( ( $total ) );
+          $cart_item['domain_price_added'] = true;
+        }
+        wp_cache_set('wcdnr_cart_item_processed_' . $cart_key, true, 'wcdnr');
       }
     }
   }
@@ -198,6 +221,26 @@ class WCDNR {
         $item->add_meta_data( __( 'Domain name', 'wcdnr' ), $values['domain_name'], true );
       }
     }
+  }
+
+  function get_price_html( $price_html, $product ) {
+    $unit_price = get_post_meta( $product->id, 'unit_price', true );
+    // error_log('price before ' . $price_html . ' (' . $unit_price . ')');
+    if($product->get_meta( '_domainname' ) == 'yes') {
+      $price = max($product->get_price(), get_option('wcdnr_domain_minimum_price', 0));
+      if ( $product->is_on_sale() && $product->get_price() >= $price ) {
+        $price = wc_format_sale_price( wc_get_price_to_display( $product, array( 'price' => $product->get_regular_price() ) ),
+        wc_get_price_to_display( $product ) ) . $product->get_price_suffix();
+      } else {
+        $price = wc_price( $price ) . $product->get_price_suffix();
+      }
+      if($price == 0) {
+        $price_html = apply_filters( 'woocommerce_empty_price_html', '', $product );
+      } else {
+        $price_html = sprintf('<span class="from">%s </span>', __('From', 'wcdnr')) . $price;
+      }
+    }
+    return $price_html;
   }
 
   // /**

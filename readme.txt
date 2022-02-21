@@ -56,7 +56,9 @@ The current to-do list include:
 1. Install and activate [WooCommerce](https://wordpress.org/plugins/woocommerce/) plugin. Optionally install WooCommerce Subscriptions (recommended).
 2. Download, install and activate the [latest stable release](https://github.com/magicoli/woocommerce-domain-names/releases/latest).
 3. In WooCommerce settings > Domain names, fill Openprovider credentials and save. Setup margin, rounding and minimum price on the same page.
-4. Create a product, check "virtual" and "Domain name" in product data options and set the base display price (the actual price will be set for each order)
+4. Create a product,
+  * check "virtual" and "Domain name" in product data options
+  * set the base price to 0 or more (will be added to actual domain registration price).
 
 == Frequently Asked Questions ==
 
@@ -65,6 +67,11 @@ The current to-do list include:
 Because nobody asked anything yet.
 
 == Changelog ==
+
+= Unreleased =
+* added "From" before price
+* added input-text class to domain name field
+* fix options not included in cart total
 
 = 0.1.3.1 =
 * renamed as woocommerce-domain-names (hopefully the last rename, to match my other wc plugins naming)
