@@ -1,34 +1,34 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Domain Names\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-domain-names\n"
-"Last-Translator: Olivier van Helden <olivier@van-helden.net>\n"
-"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-02-21T21:06:38-04:00\n"
-"PO-Revision-Date: \n"
+"X-Generator: POEditor.com\n"
+"Project-Id-Version: WooCommerce Domain Names\n"
 "Language: nl\n"
-"X-Generator: Poedit 2.4.2\n"
 
 #. Plugin Name of the plugin
+#: 
 msgid "WooCommerce Domain Names"
 msgstr "WooCommerce Domein Namen"
 
 #. Plugin URI of the plugin
-msgid "https://github.com/magicoli/woocommerce-domain-names"
-msgstr "https://github.com/magicoli/woocommerce-domain-names"
+#: 
+msgid "https://github.com/magicoli/wc-domain-names"
+msgstr "https://github.com/magicoli/wc-domain-names"
 
 #. Description of the plugin
+#: 
 msgid "WooCommerce domain names products and tools for Openprovider."
 msgstr "WooCommerce domeinnamen producten en tools voor Openprovider."
 
 #. Author of the plugin
+#: 
 msgid "Magiiic"
 msgstr "Magiiic"
 
 #. Author URI of the plugin
+#: 
 msgid "https://magiiic.com/"
 msgstr "https://magiiic.com/"
 
@@ -68,14 +68,6 @@ msgstr "Gebruikersnaam"
 msgid "Hash"
 msgstr "Hash"
 
-#: admin/wc-admin-classes.php:114
-msgid "Product for imported domains"
-msgstr ""
-
-#: admin/wc-admin-classes.php:118
-msgid "Product to use for domains imported from registry."
-msgstr ""
-
 #: admin/wc-admin-classes.php:125
 msgid "Prices"
 msgstr "Prijzen"
@@ -96,29 +88,11 @@ msgstr "Afronding (%s)"
 msgid "%s needs Openprovider credentials to function properly."
 msgstr "%s heeft Openprovider credentials nodig om goed te functioneren."
 
-#: includes/classes.php:44
-msgctxt "An unspecified domain name (in products list)"
-msgid "Register domain"
-msgstr ""
-
-#: includes/classes.php:49
-msgctxt "The given domain name (on single product page, under name field)"
-msgid "Register domain name"
-msgstr ""
-
 #: includes/classes.php:63
 #: includes/classes.php:96
 #: includes/classes.php:228
 msgid "Domain name"
 msgstr "Domeinnaam"
-
-#: includes/classes.php:64
-msgid "Check to use this product for domain name registration."
-msgstr "Vink aan om dit product te gebruiken voor domeinnaam registratie."
-
-#: includes/classes.php:98
-msgid "Actual domain name price will be displayed in the shopping cart, before order validation and payment."
-msgstr ""
 
 #: includes/classes.php:106
 msgid "Domain name is required"
@@ -128,19 +102,6 @@ msgstr "Domeinnaam is vereist"
 msgid "Please provide a valid domain name"
 msgstr "Geef een geldige domeinnaam op"
 
-#: includes/classes.php:130
-msgid "Cannot register %1$s"
-msgstr "Kan %1$s niet registreren"
-
-#: includes/classes.php:134
-#: includes/openprovider-api.php:729
-msgid "Domain exists"
-msgstr ""
-
-#: includes/classes.php:245
-msgid "From"
-msgstr ""
-
 #: includes/functions.php:29
 msgid "No products found"
 msgstr "Geen producten gevonden"
@@ -149,9 +110,9 @@ msgstr "Geen producten gevonden"
 msgid "Select a product"
 msgstr "Kies een product"
 
-#: includes/openprovider-api.php:627
-msgid "API is temporarily unavailable due to maintenance"
-msgstr "API is tijdelijk niet beschikbaar wegens onderhoud"
+#: includes/classes.php:64
+msgid "Check to use this product for domain name registration."
+msgstr "Vink aan om dit product te gebruiken voor domeinnaam registratie."
 
 #: includes/openprovider-api.php:727
 msgid "Your domain request contains an invalid extension!"
@@ -160,3 +121,56 @@ msgstr "Uw domein aanvraag bevat een ongeldige extensie!"
 #: includes/openprovider-api.php:728
 msgid "Name reserved by IANA"
 msgstr "Naam gereserveerd door IANA"
+
+#: includes/classes.php:134
+#: includes/openprovider-api.php:729
+#, fuzzy
+msgid "Domain exists"
+msgstr "Domein bestaat"
+
+#: includes/classes.php:121
+msgid "Cannot register domain %1$s (%2$s)"
+msgstr "Kan domein %1$s niet registreren (%2$s)"
+
+#: includes/openprovider-api.php:627
+msgid "API is temporarily unavailable due to maintenance"
+msgstr "API is tijdelijk niet beschikbaar wegens onderhoud"
+
+#: includes/classes.php:44
+#, fuzzy
+msgctxt "An unspecified domain name (in products list)"
+msgid "Register domain"
+msgstr "Domeinnaam registreren"
+
+#: includes/classes.php:49
+#, fuzzy
+msgctxt "The given domain name (on single product page, under name field)"
+msgid "Register domain name"
+msgstr "Domeinnaam registreren"
+
+#. Plugin URI of the plugin
+#: 
+msgid "https://github.com/magicoli/woocommerce-domain-names"
+msgstr "https://github.com/magicoli/woocommerce-domain-names"
+
+#: admin/wc-admin-classes.php:114
+msgid "Product for imported domains"
+msgstr "Product voor ingevoerde domeinen"
+
+#: admin/wc-admin-classes.php:118
+msgid "Product to use for domains imported from registry."
+msgstr "Product te gebruiken voor domeinen geïmporteerd uit register."
+
+#: includes/classes.php:98
+msgid "Actual domain name price will be displayed in the shopping cart, before order validation and payment."
+msgstr "De werkelijke prijs van de domeinnaam wordt weergegeven in de winkelwagen, vóór de validatie van de bestelling en de betaling."
+
+#: includes/classes.php:130
+msgid "Cannot register %1$s"
+msgstr "Kan %1$s niet registreren"
+
+#: includes/classes.php:245
+#, fuzzy
+msgid "From"
+msgstr "Vanaf"
+
