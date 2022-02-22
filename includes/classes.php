@@ -94,7 +94,7 @@ class WCDNR {
       </div>',
       __('Domain name', 'wcdnr'),
       $value,
-      __('Actual domain name price will be displayed in the shopping cart, before order validation and payment.', 'wdnr'),
+      __('Actual domain name price will be displayed in the shopping cart, before order validation and payment.', 'wcdnr'),
     );
   }
 
