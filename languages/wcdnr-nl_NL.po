@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-02-21T18:58:05-04:00\n"
+"POT-Creation-Date: 2022-02-21T21:06:38-04:00\n"
 "PO-Revision-Date: \n"
 "Language: nl\n"
 "X-Generator: Poedit 2.4.2\n"
@@ -68,31 +68,31 @@ msgstr "Gebruikersnaam"
 msgid "Hash"
 msgstr "Hash"
 
-#: admin/wc-admin-classes.php:106
-msgid "Fetch existing domains"
-msgstr ""
-
-#: admin/wc-admin-classes.php:108
-msgid "Check this box to import existing domain names from the registrar."
+#: admin/wc-admin-classes.php:114
+msgid "Product for imported domains"
 msgstr ""
 
 #: admin/wc-admin-classes.php:118
+msgid "Product to use for domains imported from registry."
+msgstr ""
+
+#: admin/wc-admin-classes.php:125
 msgid "Prices"
 msgstr "Prijzen"
 
-#: admin/wc-admin-classes.php:124
+#: admin/wc-admin-classes.php:131
 msgid "Minimum margin (%)"
 msgstr "Minimum marge (%)"
 
-#: admin/wc-admin-classes.php:131
+#: admin/wc-admin-classes.php:138
 msgid "Minimum price (%s)"
 msgstr "Minimumprijs (%)"
 
-#: admin/wc-admin-classes.php:138
+#: admin/wc-admin-classes.php:145
 msgid "Rounding (%s)"
 msgstr "Afronding (%s)"
 
-#: admin/wc-admin-classes.php:169
+#: admin/wc-admin-classes.php:176
 msgid "%s needs Openprovider credentials to function properly."
 msgstr "%s heeft Openprovider credentials nodig om goed te functioneren."
 
@@ -108,7 +108,7 @@ msgstr ""
 
 #: includes/classes.php:63
 #: includes/classes.php:96
-#: includes/classes.php:222
+#: includes/classes.php:228
 msgid "Domain name"
 msgstr "Domeinnaam"
 
@@ -128,11 +128,16 @@ msgstr "Domeinnaam is vereist"
 msgid "Please provide a valid domain name"
 msgstr "Geef een geldige domeinnaam op"
 
-#: includes/classes.php:127
-msgid "Cannot register domain %1$s (%2$s)"
-msgstr "Kan domein %1$s niet registreren (%2$s)"
+#: includes/classes.php:130
+msgid "Cannot register %1$s"
+msgstr "Kan %1$s niet registreren"
 
-#: includes/classes.php:233
+#: includes/classes.php:134
+#: includes/openprovider-api.php:729
+msgid "Domain exists"
+msgstr ""
+
+#: includes/classes.php:245
 msgid "From"
 msgstr ""
 
@@ -155,7 +160,3 @@ msgstr "Uw domein aanvraag bevat een ongeldige extensie!"
 #: includes/openprovider-api.php:728
 msgid "Name reserved by IANA"
 msgstr "Naam gereserveerd door IANA"
-
-#: includes/openprovider-api.php:729
-msgid "Domain exists"
-msgstr ""

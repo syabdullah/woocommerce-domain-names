@@ -99,7 +99,7 @@ class WCDNR {
   }
 
   function validate_custom_field( $passed, $product_id, $quantity ) {
-    if(wcdnr_is_domain_product( $product_id )) {
+    if($passed && wcdnr_is_domain_product( $product_id )) {
       $domain = sanitize_text_field($_POST['wcdnr_domain']);
       if( empty( $domain ) ) {
         wc_add_notice( __('Domain name is required', 'wcdnr'), 'error' );
@@ -122,11 +122,17 @@ class WCDNR {
         ));
         if ($reply->getFaultCode() != 0) {
           $passed = false;
-        } else if($reply->getValue()[0]['status'] != 'free') {
-          wc_add_notice(sprintf(__('Cannot register domain %1$s (%2$s)', 'wcdnr'), $domain, __($reply->getValue()[0]['reason'], 'wcdnr')), 'error');
-          $passed = false;
-        } else {
+        } else if ($reply->getValue()[0]['status'] == 'free'){
           wp_cache_set('domain_price_' . $domain, $reply->getValue()[0], 'wcdnr');
+        } else {
+          $passed = false;
+          $notice = sprintf(__('Cannot register %1$s', 'wcdnr'), $domain);
+          if(!empty($reply->getValue()[0]['reason'])) {
+            $notice .= sprintf(' (%s)', __($reply->getValue()[0]['reason'], 'wcdnr'));
+          } else if($reply->getValue()[0]['status'] == 'active') {
+            $notice .= sprintf(' (%s)', __('Domain exists', 'wcdnr')) . " [" . $reply->getValue()[0]['status'] . "]";
+          }
+          wc_add_notice($notice, 'error');
         }
       }
     }
@@ -224,19 +230,17 @@ class WCDNR {
   }
 
   function get_price_html( $price_html, $product ) {
-    $unit_price = get_post_meta( $product->id, 'unit_price', true );
-    // error_log('price before ' . $price_html . ' (' . $unit_price . ')');
     if($product->get_meta( '_domainname' ) == 'yes') {
       $price = max($product->get_price(), get_option('wcdnr_domain_minimum_price', 0));
-      if ( $product->is_on_sale() && $product->get_price() >= $price ) {
-        $price = wc_format_sale_price( wc_get_price_to_display( $product, array( 'price' => $product->get_regular_price() ) ),
-        wc_get_price_to_display( $product ) ) . $product->get_price_suffix();
-      } else {
-        $price = wc_price( $price ) . $product->get_price_suffix();
-      }
-      if($price == 0) {
+      if( $price == 0 ) {
         $price_html = apply_filters( 'woocommerce_empty_price_html', '', $product );
       } else {
+        if ( $product->is_on_sale() && $product->get_price() >= $price ) {
+          $price = wc_format_sale_price( wc_get_price_to_display( $product, array( 'price' => $product->get_regular_price() ) ),
+          wc_get_price_to_display( $product ) ) . $product->get_price_suffix();
+        } else {
+          $price = wc_price( $price ) . $product->get_price_suffix();
+        }
         $price_html = sprintf('<span class="from">%s </span>', __('From', 'wcdnr')) . $price;
       }
     }
