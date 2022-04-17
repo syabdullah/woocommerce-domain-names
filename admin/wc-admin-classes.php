@@ -101,13 +101,26 @@ class WCDNR_Admin {
         // 'desc' => __( 'This is some helper text', 'wcdnr' ),
         'id'   => 'wcdnr_openprovider_hash'
       ),
-      'section_openprovider_end' => array(
-        'type' => 'sectionend',
-        'id' => 'wcdnr_section_openprovider_end'
-      ),
     );
     if(get_option('wcdnr_openprovider_ok')) {
       $settings = array_merge($settings, array(
+        // array(
+        //   'id' => 'wcdnr_openprovider_migrate',
+        //   'name' => __('Fetch existing domains', 'wcdnr'),
+        //   'type' => 'checkbox',
+        //   'desc_tip' => __( 'Check this box to import existing domain names from the registrar.', 'wcdnr' ),
+        // ),
+        array(
+          'name' => __( 'Product for imported domains', 'wcdnr' ),
+          'type' => 'select',
+          'id'   => 'wcdnr_domain_registration_product',
+          'options' => wcdnr_product_picker_array(),
+          'desc_tip' => __( 'Product to use for domains imported from registry.', 'wcdnr' ),
+        ),
+        'section_openprovider_end' => array(
+          'type' => 'sectionend',
+          'id' => 'wcdnr_section_openprovider_end'
+        ),
         'section_title' => array(
           'name'     => __( 'Prices', 'wcdnr' ),
           'type'     => 'title',
@@ -134,12 +147,17 @@ class WCDNR_Admin {
           'custom_attributes' => array( 'min' => 0, 'size' => 2 ),
           'default' => 0,
         ),
-        'section_end' => array(
-          'type' => 'sectionend',
-          'id' => 'wcdnr_section_end'
-        ),
+      ));
+    } else {
+      $settings = array_merge($settings, array(
       ));
     }
+    $settings = array_merge($settings, array(
+      'section_end' => array(
+        'type' => 'sectionend',
+        'id' => 'wcdnr_section_end'
+      ),
+    ));
     return apply_filters( 'wcdnr_settings', $settings );
   }
 

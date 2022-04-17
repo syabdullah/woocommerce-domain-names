@@ -32,7 +32,7 @@ class WCDNR {
     add_filter( 'woocommerce_product_single_add_to_cart_text', __CLASS__ . '::single_add_to_card_button', 10, 2);
   }
 
-  public function load_plugin_textdomain() {
+  static function load_plugin_textdomain() {
 		load_plugin_textdomain(
 			'wcdnr',
 			false,
@@ -82,6 +82,7 @@ class WCDNR {
     // if($product->get_meta( '_domainname' ) != 'yes') return;
 
     if(!wcdnr_is_domain_product( wc_get_product( $post->ID ) )) return;
+    $value = 'thisisatestdomainrequest.com';
     // $value = isset( $_POST['wcdnr_domain'] ) ? sanitize_text_field( $_POST['wcdnr_domain'] ) : '';
     printf(
       '<div class="wcdnr-field wcdnr-field-domain-name">
