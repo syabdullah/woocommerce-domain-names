@@ -1,139 +1,96 @@
 msgid ""
 msgstr ""
+"Project-Id-Version: WooCommerce Domain Names\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-domain-names\n"
+"Last-Translator: \n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: POEditor.com\n"
-"Project-Id-Version: WooCommerce Domain Names\n"
+"POT-Creation-Date: 2022-06-06T15:31:01-04:00\n"
+"PO-Revision-Date: 2022-06-06 15:34-0400\n"
 "Language: fr\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #. Plugin Name of the plugin
-#: 
 msgid "WooCommerce Domain Names"
 msgstr "WooCommerce Noms de domaine"
 
 #. Plugin URI of the plugin
-#: 
-msgid "https://github.com/magicoli/wc-domain-names"
-msgstr "https://github.com/magicoli/wc-domain-names"
+msgid "https://github.com/magicoli/woocommerce-domain-names"
+msgstr "https://github.com/magicoli/woocommerce-domain-names"
 
 #. Description of the plugin
-#: 
 msgid "WooCommerce domain names products and tools for Openprovider."
 msgstr "Produits et outils WooCommerce pour la gestion de noms de domaine avec Openprovider."
 
 #. Author of the plugin
-#: 
 msgid "Magiiic"
 msgstr "Magiiic"
 
 #. Author URI of the plugin
-#: 
 msgid "https://magiiic.com/"
 msgstr "https://magiiic.com/"
 
-#: admin/wc-admin-classes.php:24
+#: admin/wc-admin-classes.php:25
 msgid "Settings"
 msgstr "Paramètres"
 
-#: admin/wc-admin-classes.php:36
+#: admin/wc-admin-classes.php:37
 msgid "Domain Names"
 msgstr "Noms de domaine"
 
-#: admin/wc-admin-classes.php:71
+#: admin/wc-admin-classes.php:72
 msgid "Openprovider connection"
 msgstr "Connexion à Openprovider"
 
-#: admin/wc-admin-classes.php:76
+#: admin/wc-admin-classes.php:77
 msgid "Find your credentials in Openprovider dashboard %s"
 msgstr "Trouvez vos informations d'identification dans le tableau de bord Openprovider %s"
 
-#: admin/wc-admin-classes.php:82
+#: admin/wc-admin-classes.php:83
 msgid "Account"
 msgstr "Compte"
 
-#: admin/wc-admin-classes.php:83
+#: admin/wc-admin-classes.php:84
 msgid "Account overview"
 msgstr "Aperçu du compte"
 
-#: admin/wc-admin-classes.php:84
+#: admin/wc-admin-classes.php:85
 msgid "Contact persons"
 msgstr "Personnes de contact"
 
-#: admin/wc-admin-classes.php:91
+#: admin/wc-admin-classes.php:92
 msgid "Username"
 msgstr "Nom d'utilisateur"
 
-#: admin/wc-admin-classes.php:98
-msgid "Hash"
-msgstr "Hash"
+#: admin/wc-admin-classes.php:99
+msgid "Password"
+msgstr "Mot de passe"
 
-#: admin/wc-admin-classes.php:125
+#: admin/wc-admin-classes.php:122
+msgid "Product for imported domains"
+msgstr "Produit pour les domaines importés"
+
+#: admin/wc-admin-classes.php:126
+msgid "Product to use for domains imported from registry."
+msgstr "Produit à utiliser pour les domaines importés du registre."
+
+#: admin/wc-admin-classes.php:133
 msgid "Prices"
 msgstr "Prix"
 
-#: admin/wc-admin-classes.php:131
+#: admin/wc-admin-classes.php:139
 msgid "Minimum margin (%)"
 msgstr "Marge minimale (%)"
 
-#: admin/wc-admin-classes.php:138
+#: admin/wc-admin-classes.php:146
 msgid "Minimum price (%s)"
 msgstr "Prix minimal (%s)"
 
-#: admin/wc-admin-classes.php:145
+#: admin/wc-admin-classes.php:153
 msgid "Rounding (%s)"
 msgstr "Arrondi (%s)"
-
-#: admin/wc-admin-classes.php:176
-msgid "%s needs Openprovider credentials to function properly."
-msgstr "%s a besoin des informations d'identification d'Openprovider pour fonctionner correctement."
-
-#: includes/classes.php:63
-#: includes/classes.php:96
-#: includes/classes.php:228
-msgid "Domain name"
-msgstr "Nom de domaine"
-
-#: includes/classes.php:106
-msgid "Domain name is required"
-msgstr "Le nom de domaine est requis"
-
-#: includes/classes.php:109
-msgid "Please provide a valid domain name"
-msgstr "Veuillez fournir un nom de domaine valide"
-
-#: includes/functions.php:29
-msgid "No products found"
-msgstr "Aucun produit trouvé"
-
-#: includes/functions.php:31
-msgid "Select a product"
-msgstr "Sélectionnez un produit"
-
-#: includes/classes.php:64
-msgid "Check to use this product for domain name registration."
-msgstr "Cochez pour utiliser ce produit pour l'enregistrement de noms de domaine."
-
-#: includes/openprovider-api.php:727
-msgid "Your domain request contains an invalid extension!"
-msgstr "Le nom de domaine demandé contient une extension invalide !"
-
-#: includes/openprovider-api.php:728
-msgid "Name reserved by IANA"
-msgstr "Nom réservé par l'IANA"
-
-#: includes/classes.php:134
-#: includes/openprovider-api.php:729
-msgid "Domain exists"
-msgstr "Le nom de domaine existe"
-
-#: includes/classes.php:121
-msgid "Cannot register domain %1$s (%2$s)"
-msgstr "Impossible d'enregistrer le domaine %1$s (%2$s)"
-
-#: includes/openprovider-api.php:627
-msgid "API is temporarily unavailable due to maintenance"
-msgstr "L'API est temporairement indisponible pour cause de maintenance"
 
 #: includes/classes.php:44
 msgctxt "An unspecified domain name (in products list)"
@@ -145,28 +102,73 @@ msgctxt "The given domain name (on single product page, under name field)"
 msgid "Register domain name"
 msgstr "Enregistrer le nom de domaine"
 
-#. Plugin URI of the plugin
-#: 
-msgid "https://github.com/magicoli/woocommerce-domain-names"
-msgstr "https://github.com/magicoli/woocommerce-domain-names"
+#: includes/classes.php:63
+#: includes/classes.php:96
+#: includes/classes.php:235
+msgid "Domain name"
+msgstr "Nom de domaine"
 
-#: admin/wc-admin-classes.php:114
-msgid "Product for imported domains"
-msgstr "Produit pour les domaines importés"
-
-#: admin/wc-admin-classes.php:118
-msgid "Product to use for domains imported from registry."
-msgstr "Produit à utiliser pour les domaines importés du registre."
+#: includes/classes.php:64
+msgid "Check to use this product for domain name registration."
+msgstr "Cochez pour utiliser ce produit pour l'enregistrement de noms de domaine."
 
 #: includes/classes.php:98
 msgid "Actual domain name price will be displayed in the shopping cart, before order validation and payment."
 msgstr "Le prix réel du nom de domaine sera affiché dans le panier, avant la validation de la commande et le paiement."
 
-#: includes/classes.php:130
+#: includes/classes.php:106
+msgid "Domain name is required"
+msgstr "Le nom de domaine est requis"
+
+#: includes/classes.php:109
+msgid "Please provide a valid domain name"
+msgstr "Veuillez fournir un nom de domaine valide"
+
+#: includes/classes.php:131
 msgid "Cannot register %1$s"
 msgstr "Impossible d'enregistrer %1$s"
 
-#: includes/classes.php:245
+#: includes/classes.php:135
+#: includes/openprovider-api-obsolete.php:614
+msgid "Domain exists"
+msgstr "Le nom de domaine existe"
+
+#: includes/classes.php:141
+msgid "API migration not ready"
+msgstr "La migration de l'API n'est pas prête"
+
+#: includes/classes.php:252
 msgid "From"
 msgstr "À partir de"
 
+#: includes/functions.php:29
+msgid "No products found"
+msgstr "Aucun produit trouvé"
+
+#: includes/functions.php:31
+msgid "Select a product"
+msgstr "Sélectionnez un produit"
+
+#: includes/openprovider-api-obsolete.php:512
+msgid "API is temporarily unavailable due to maintenance"
+msgstr "L'API est temporairement indisponible pour cause de maintenance"
+
+#: includes/openprovider-api-obsolete.php:612
+msgid "Your domain request contains an invalid extension!"
+msgstr "Le nom de domaine demandé contient une extension invalide !"
+
+#: includes/openprovider-api-obsolete.php:613
+msgid "Name reserved by IANA"
+msgstr "Nom réservé par l'IANA"
+
+#~ msgid "https://github.com/magicoli/wc-domain-names"
+#~ msgstr "https://github.com/magicoli/wc-domain-names"
+
+#~ msgid "Hash"
+#~ msgstr "Hash"
+
+#~ msgid "%s needs Openprovider credentials to function properly."
+#~ msgstr "%s a besoin des informations d'identification d'Openprovider pour fonctionner correctement."
+
+#~ msgid "Cannot register domain %1$s (%2$s)"
+#~ msgstr "Impossible d'enregistrer le domaine %1$s (%2$s)"
