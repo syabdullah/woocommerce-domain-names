@@ -1,7 +1,7 @@
 <?php
 
 require_once(__DIR__ . '/functions.php');
-require_once(__DIR__ . '/openprovider-api.php');
+// require_once(__DIR__ . '/openprovider-api.php');
 
 /**
  * [WCDNR description]
