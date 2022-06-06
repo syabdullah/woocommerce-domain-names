@@ -1,7 +1,7 @@
 <?php
 
 require_once(__DIR__ . '/functions.php');
-// require_once(__DIR__ . '/openprovider-api.php');
+require_once(__DIR__ . '/openprovider-api.php');
 
 /**
  * [WCDNR description]
@@ -29,7 +29,7 @@ class WCDNR {
     add_action( 'plugins_loaded', __CLASS__ . '::load_plugin_textdomain' );
 
     add_filter( 'woocommerce_product_add_to_cart_text', __CLASS__ . '::add_to_card_button', 10, 2);
-    add_filter( 'woocommerce_product_single_add_to_cart_text', __CLASS__ . '::single_add_to_card_button', 10, 2);
+    add_filter( 'woocommerce_product_single_add_to_cart_text', __CLASS__ . '::single_add_to_cart_button', 10, 2);
   }
 
   static function load_plugin_textdomain() {
@@ -40,17 +40,17 @@ class WCDNR {
 		);
 	}
 
-  function add_to_card_button( $text, $product ) {
+  static function add_to_card_button( $text, $product ) {
     if($product->get_meta( '_domainname' ) == 'yes') $text = _x('Register domain', 'An unspecified domain name (in products list)', 'wcdnr');
   	return $text;
   }
 
-  function single_add_to_card_button( $text, $product ) {
+  static function single_add_to_cart_button( $text, $product ) {
     if($product->get_meta( '_domainname' ) == 'yes') $text = _x('Register domain name', 'The given domain name (on single product page, under name field)', 'wcdnr');
   	return $text;
   }
 
-  function add_to_cart_message( $message, $product_id ) {
+  static function add_to_cart_message( $message, $product_id ) {
       // make filter magic happen here...
       if(!empty($_POST['wcdnr_domain'])) $message = $_POST['wcdnr_domain'] . ": $message";
       return $message;
@@ -75,7 +75,7 @@ class WCDNR {
   * Display custom field on the front end
   * @since 1.0.0
   */
-  function display_custom_field() {
+  static function display_custom_field() {
     global $post;
     // Check for the custom field value
     // $product = wc_get_product( $post->ID );
@@ -99,7 +99,7 @@ class WCDNR {
     );
   }
 
-  function validate_custom_field( $passed, $product_id, $quantity ) {
+  static function validate_custom_field( $passed, $product_id, $quantity ) {
     if($passed && wcdnr_is_domain_product( $product_id )) {
       $domain = sanitize_text_field($_POST['wcdnr_domain']);
       if( empty( $domain ) ) {
@@ -112,28 +112,33 @@ class WCDNR {
         global $Openprovider;
         $extension = preg_replace('/^.*\./', '', $domain);
         $name = preg_replace("/\.$extension$/", '', $domain);
-        $reply = $Openprovider->request('checkDomainRequest', array(
-          'domains' => array(
-            array(
-              'name' => $name,
-              'extension' => $extension,
+        if($openprovider) {
+          $reply = $Openprovider->request('checkDomainRequest', array(
+            'domains' => array(
+              array(
+                'name' => $name,
+                'extension' => $extension,
+              ),
             ),
-          ),
-          'withPrice' => true,
-        ));
-        if ($reply->getFaultCode() != 0) {
-          $passed = false;
-        } else if ($reply->getValue()[0]['status'] == 'free'){
-          wp_cache_set('domain_price_' . $domain, $reply->getValue()[0], 'wcdnr');
-        } else {
-          $passed = false;
-          $notice = sprintf(__('Cannot register %1$s', 'wcdnr'), $domain);
-          if(!empty($reply->getValue()[0]['reason'])) {
-            $notice .= sprintf(' (%s)', __($reply->getValue()[0]['reason'], 'wcdnr'));
-          } else if($reply->getValue()[0]['status'] == 'active') {
-            $notice .= sprintf(' (%s)', __('Domain exists', 'wcdnr')) . " [" . $reply->getValue()[0]['status'] . "]";
+            'withPrice' => true,
+          ));
+          if ($reply->getFaultCode() != 0) {
+            $passed = false;
+          } else if ($reply->getValue()[0]['status'] == 'free'){
+            wp_cache_set('domain_price_' . $domain, $reply->getValue()[0], 'wcdnr');
+          } else {
+            $passed = false;
+            $notice = sprintf(__('Cannot register %1$s', 'wcdnr'), $domain);
+            if(!empty($reply->getValue()[0]['reason'])) {
+              $notice .= sprintf(' (%s)', __($reply->getValue()[0]['reason'], 'wcdnr'));
+            } else if($reply->getValue()[0]['status'] == 'active') {
+              $notice .= sprintf(' (%s)', __('Domain exists', 'wcdnr')) . " [" . $reply->getValue()[0]['status'] . "]";
+            }
+            wc_add_notice($notice, 'error');
           }
-          wc_add_notice($notice, 'error');
+        } else {
+          $passed=false;
+          wc_add_notice(__('API migration not ready', 'wcdnr'), 'error');
         }
       }
     }
@@ -148,25 +153,27 @@ class WCDNR {
   * @param Integer $variation_id Variation ID.
   * @param Boolean $quantity Quantity
   */
-  function add_custom_field_item_data( $cart_item_data, $product_id, $variation_id, $quantity ) {
+  static function add_custom_field_item_data( $cart_item_data, $product_id, $variation_id, $quantity ) {
     $domain = sanitize_text_field($_POST['wcdnr_domain']);
 
     if( ! empty( $domain ) ) {
       global $Openprovider;
-      // Add the item data
-      $cart_item_data['domain_name'] = $domain;
+      if($openprovider) {
+        // Add the item data
+        $cart_item_data['domain_name'] = $domain;
 
-      $price = $Openprovider->get_quote($domain);
-      if(!$price === false) {
-        $product = wc_get_product( $product_id ); // Expanded function
-        // $price = $product->get_price(); // Expanded function
-        $cart_item_data['domain_price'] = wcdnr_selling_price($price); // Expanded function
+        $price = $Openprovider->get_quote($domain);
+        if(!$price === false) {
+          $product = wc_get_product( $product_id ); // Expanded function
+          // $price = $product->get_price(); // Expanded function
+          $cart_item_data['domain_price'] = wcdnr_selling_price($price); // Expanded function
+        }
       }
     }
     return $cart_item_data;
   }
 
-  public function add_cart_item( $cart_item ) {
+  static function add_cart_item( $cart_item ) {
     if( isset( $cart_item['domain_price'] ) ) {
       // $cart_item['data']->adjust_price( $cart_item['domain_price'] );
 
@@ -181,7 +188,7 @@ class WCDNR {
   * Update the price in the cart
   * @since 1.0.0
   */
-  function before_calculate_totals( $cart ) {
+  static function before_calculate_totals( $cart ) {
     if ( is_admin() && ! defined( 'DOING_AJAX' ) ) {
       return;
     }
@@ -208,7 +215,7 @@ class WCDNR {
   * Display the custom field value in the cart
   * @since 1.0.0
   */
-  function cart_item_name( $name, $cart_item, $cart_item_key ) {
+  static function cart_item_name( $name, $cart_item, $cart_item_key ) {
     if( isset( $cart_item['domain_name'] ) ) {
       $name = sprintf(
       '%s <span class=wcdnr-domain-name>%s</span>',
@@ -230,7 +237,7 @@ class WCDNR {
     }
   }
 
-  function get_price_html( $price_html, $product ) {
+  static function get_price_html( $price_html, $product ) {
     if($product->get_meta( '_domainname' ) == 'yes') {
       $price = max($product->get_price(), get_option('wcdnr_domain_minimum_price', 0));
       if( $price == 0 ) {

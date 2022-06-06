@@ -15,7 +15,8 @@ class WCDNR_Admin {
     add_filter( 'plugin_action_links_' . WCDNR_PLUGIN, __CLASS__ . '::add_action_links' );
 
     add_action( 'woocommerce_update_options_wcdnr', __CLASS__ . '::update_settings' );
-    add_filter( "woocommerce_admin_settings_sanitize_option_wcdnr_openprovider_hash", __CLASS__ . '::check_credentials', 10, 3 );
+    // add_filter( "woocommerce_admin_settings_sanitize_option_wcdnr_openprovider_hash", __CLASS__ . '::check_credentials', 10, 3 );
+    add_filter( "woocommerce_admin_settings_sanitize_option_wcdnr_openprovider_password", __CLASS__ . '::check_credentials', 10, 3 );
     add_filter( "woocommerce_admin_settings_sanitize_option_wcdnr_openprovider_username", __CLASS__ . '::check_credentials', 10, 3 );
   }
 
@@ -95,12 +96,19 @@ class WCDNR_Admin {
         'id'   => 'wcdnr_openprovider_username'
       ),
       array(
-        'name' => __( 'Hash', 'wcdnr' ),
+        'name' => __( 'Password', 'wcdnr' ),
         'type' => 'password',
         // 'custom_attributes' => array( 'required' => 'required' ),
         // 'desc' => __( 'This is some helper text', 'wcdnr' ),
-        'id'   => 'wcdnr_openprovider_hash'
+        'id'   => 'wcdnr_openprovider_password'
       ),
+      // array(
+      //   'name' => __( 'Hash', 'wcdnr' ),
+      //   'type' => 'password',
+      //   // 'custom_attributes' => array( 'required' => 'required' ),
+      //   'desc' => __("Enter either password or hash, although hash doesn't seem to work right now", 'wcdnr'),
+      //   'id'   => 'wcdnr_openprovider_hash',
+      // ),
     );
     if(get_option('wcdnr_openprovider_ok')) {
       $settings = array_merge($settings, array(
@@ -163,37 +171,26 @@ class WCDNR_Admin {
 
   public static function check_credentials($value, $option, $raw_value) {
     $cached = wp_cache_get('wcdnr_check_credentials', 'wcdnr');
-    if($cached == 'success') return $value;
-    else if($cached) return;
+    if($cached) return $value;
+    // if($cached == 'success') return $value;
+    // else if($cached) return $value;
 
-    $username = $_REQUEST['wcdnr_openprovider_username'];
-    $hash = $_REQUEST['wcdnr_openprovider_hash'];
-    if(empty($username . $hash)) {
-      update_option('wcdnr_openprovider_ok', false);
-      update_option('wcdnr_openprovider_username', '');
-      update_option('wcdnr_openprovider_hash', '');
-      wp_cache_set('wcdnr_check_credentials', 'fail', 'wcdnr');
-      WC_Admin_Settings::add_error(sprintf(__('%s needs Openprovider credentials to function properly.', 'wcdnr'), WCDNR_PLUGIN_NAME));
-      return $value;
-    }
+    $credentials['username'] = $_REQUEST['wcdnr_openprovider_username'];
+    $credentials['password'] = $_REQUEST['wcdnr_openprovider_password'];
+    // $credentials['hash'] = $_REQUEST['wcdnr_openprovider_hash'];
 
-    global $Openprovider;
-
-    $request = new OP_Request;
-    $request->setCommand('createCustomerRequest')
-    ->setAuth(array('username' => $username, 'hash' => $hash));
-    $reply = $Openprovider->process($request); // prod
-
-    if ($reply->getFaultCode() == 196) {
+    $client = wcdnr_get_op_client($credentials);
+    // $result = $client->getTldModule()->getTldServiceApi()->getTld('com');
+    if(!$client) {
       update_option('wcdnr_openprovider_ok', false);
       wp_cache_set('wcdnr_check_credentials', 'fail', 'wcdnr');
-      WC_Admin_Settings::add_error("Openprovider credentials: " . $reply->getFaultString());
-      return;
+      WC_Admin_Settings::add_error("Openprovider credentials error");
     } else {
       update_option('wcdnr_openprovider_ok', true);
       wp_cache_set('wcdnr_check_credentials', 'success', 'wcdnr');
-      return $value;
     }
+
+    return $value;
   }
 }
 

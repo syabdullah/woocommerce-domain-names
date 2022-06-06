@@ -15,5 +15,7 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {}
+    "require": {
+        "openprovider/rest-client-php": "dev-master"
+    }
 }
