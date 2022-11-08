@@ -1,13 +1,13 @@
 <?php
 /**
- * Plugin Name:     WooCommerce Domain Names
+ * Plugin Name:     WooCommerce Domain Names (dev)
  * Plugin URI:      https://github.com/magicoli/woocommerce-domain-names
  * Description:     WooCommerce domain names products and tools for Openprovider.
  * Author:          Magiiic
  * Author URI:      https://magiiic.com/
  * Text Domain:     wcdnr
  * Domain Path:     /languages
- * Version:         0.1.3.1
+ * Version:         0.1.4-dev.57
  *
  * @package         WCDNR
  *
