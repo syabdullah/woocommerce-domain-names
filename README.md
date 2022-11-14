@@ -1,30 +1,26 @@
-# WooCommerce Domain Names
-* Contributors: magicoli69
-* Donate link: https://paypal.me/magicoli
-* Tags: domain, dns, registrar, domain names, domain registration, woocommerce, openprovider
-* Requires at least: 4.5
-* Tested up to: 5.9
-* Requires PHP: 5.6
-* Stable tag: 0.1.0
-* License: AGPLv3 or later
-* License URI: https://www.gnu.org/licenses/agpl-3.0.html
+# WooCommerce Domain Names (dev)
 
-WooCommerce products and tools for domain names resellers.
+![Stable 0.1.0](https://badgen.net/badge/Stable/0.1.0/00aa00)
+![WordPress 4.5 - 6.1](https://badgen.net/badge/WordPress/4.5%20-%206.1/3858e9)
+![Requires PHP 5.6](https://badgen.net/badge/PHP/5.6/7884bf)
+![License AGPLv3 or later](https://badgen.net/badge/License/AGPLv3%20or%20later/552b55)
+
+WooCommerce domain names products and tools for Openprovider.
 
 ## Description
 
 This plugin is designed for domain names resellers. Currently, it only provides the sale part, actual registration has to be done manually.
 
-* Requires [WooCommerce](https://wordpress.org/plugins/woocommerce/).
-* Requires [Openprovider](https://openprovider.com/) account.
-* Compatible with [WooCommerce Subscriptions](https://woocommerce.com/products/woocommerce-subscriptions/).
+- Requires [WooCommerce](https://wordpress.org/plugins/woocommerce/).
+- Requires [Openprovider](https://openprovider.com/) account.
+- Compatible with [WooCommerce Subscriptions](https://woocommerce.com/products/woocommerce-subscriptions/).
 
 ### Features
 
-* "Domain name" product type
-* "Domain name" field on product page
-* Availability and price check, using Openprovider API
-* Price adjustment rules:
+- "Domain name" product type
+- "Domain name" field on product page
+- Availability and price check, using Openprovider API
+- Price adjustment rules:
 
   - optional margin to add to gross price
   - optional rounding (e.g. only prices like 10, 15, 20...)
@@ -36,19 +32,19 @@ This is a work in progress. I develop this plugin for my own needs, because I ke
 
 The goal is to implement an easy bridge between WooCommerce and Openprovider, although the architecture should allow integration of other registrars and/or commerce platforms.
 
-**Disclaimer**: This is is not (and will probably never be) a full domain management platform. There are already very complete solutions for that.
+- *Disclaimer**: This is is not (and will probably never be) a full domain management platform. There are already very complete solutions for that.
 
 The current to-do list include:
 
-* Actual domain name registration via registrar API
-* Actual domain renewal after subscription renewal payment
-* Migrate existing domains from former billing solution
-* Reminders before domain expiration
-* Basic DNS options
-* Handle multiple years registration (and adjust price if applicable)
-* Handle renewal price different than registration price if applicable
-* Handle promo prices if applicable
-* Allow domain transfers
+- Actual domain name registration via registrar API
+- Actual domain renewal after subscription renewal payment
+- Migrate existing domains from former billing solution
+- Reminders before domain expiration
+- Basic DNS options
+- Handle multiple years registration (and adjust price if applicable)
+- Handle renewal price different than registration price if applicable
+- Handle promo prices if applicable
+- Allow domain transfers
 
 
 ## Frequently Asked Questions
