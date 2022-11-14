@@ -1,0 +1,21 @@
+{
+    "name": "magic/woocommerce-domain-names",
+    "description": "WooCommerce domain names products and tools for Openprovider",
+    "type": "wordpress-plugin",
+    "license": "AGPLV3",
+    "autoload": {
+        "psr-4": {
+            "Magic\\WoocommerceDomainNames\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Olivier van Helden",
+            "email": "olivier@van-helden.net"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "openprovider/rest-client-php": "dev-master"
+    }
+}
