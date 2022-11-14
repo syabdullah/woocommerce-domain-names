@@ -32,7 +32,7 @@ class WCDNR {
     add_filter( 'woocommerce_product_single_add_to_cart_text', __CLASS__ . '::single_add_to_card_button', 10, 2);
   }
 
-  public function load_plugin_textdomain() {
+  public static function load_plugin_textdomain() {
 		load_plugin_textdomain(
 			'wcdnr',
 			false,
@@ -40,17 +40,17 @@ class WCDNR {
 		);
 	}
 
-  function add_to_card_button( $text, $product ) {
+  static function add_to_card_button( $text, $product ) {
     if($product->get_meta( '_domainname' ) == 'yes') $text = _x('Register domain', 'An unspecified domain name (in products list)', 'wcdnr');
   	return $text;
   }
 
-  function single_add_to_card_button( $text, $product ) {
+  static function single_add_to_card_button( $text, $product ) {
     if($product->get_meta( '_domainname' ) == 'yes') $text = _x('Register domain name', 'The given domain name (on single product page, under name field)', 'wcdnr');
   	return $text;
   }
 
-  function add_to_cart_message( $message, $product_id ) {
+  static function add_to_cart_message( $message, $product_id ) {
       // make filter magic happen here...
       if(!empty($_POST['wcdnr_domain'])) $message = $_POST['wcdnr_domain'] . ": $message";
       return $message;
@@ -75,7 +75,7 @@ class WCDNR {
   * Display custom field on the front end
   * @since 1.0.0
   */
-  function display_custom_field() {
+  static function display_custom_field() {
     global $post;
     // Check for the custom field value
     // $product = wc_get_product( $post->ID );
@@ -98,7 +98,7 @@ class WCDNR {
     );
   }
 
-  function validate_custom_field( $passed, $product_id, $quantity ) {
+  static function validate_custom_field( $passed, $product_id, $quantity ) {
     if($passed && wcdnr_is_domain_product( $product_id )) {
       $domain = sanitize_text_field($_POST['wcdnr_domain']);
       if( empty( $domain ) ) {
@@ -147,7 +147,7 @@ class WCDNR {
   * @param Integer $variation_id Variation ID.
   * @param Boolean $quantity Quantity
   */
-  function add_custom_field_item_data( $cart_item_data, $product_id, $variation_id, $quantity ) {
+  static function add_custom_field_item_data( $cart_item_data, $product_id, $variation_id, $quantity ) {
     $domain = sanitize_text_field($_POST['wcdnr_domain']);
 
     if( ! empty( $domain ) ) {
@@ -165,7 +165,7 @@ class WCDNR {
     return $cart_item_data;
   }
 
-  public function add_cart_item( $cart_item ) {
+  public static function add_cart_item( $cart_item ) {
     if( isset( $cart_item['domain_price'] ) ) {
       // $cart_item['data']->adjust_price( $cart_item['domain_price'] );
 
@@ -180,7 +180,7 @@ class WCDNR {
   * Update the price in the cart
   * @since 1.0.0
   */
-  function before_calculate_totals( $cart ) {
+  static function before_calculate_totals( $cart ) {
     if ( is_admin() && ! defined( 'DOING_AJAX' ) ) {
       return;
     }
@@ -207,7 +207,7 @@ class WCDNR {
   * Display the custom field value in the cart
   * @since 1.0.0
   */
-  function cart_item_name( $name, $cart_item, $cart_item_key ) {
+  static function cart_item_name( $name, $cart_item, $cart_item_key ) {
     if( isset( $cart_item['domain_name'] ) ) {
       $name = sprintf(
       '%s <span class=wcdnr-domain-name>%s</span>',
@@ -221,7 +221,7 @@ class WCDNR {
   /**
   * Add custom field to order object
   */
-  function add_custom_data_to_order( $item, $cart_item_key, $values, $order ) {
+  static function add_custom_data_to_order( $item, $cart_item_key, $values, $order ) {
     foreach( $item as $cart_item_key=>$values ) {
       if( isset( $values['domain_name'] ) ) {
         $item->add_meta_data( __( 'Domain name', 'wcdnr' ), $values['domain_name'], true );
@@ -229,7 +229,7 @@ class WCDNR {
     }
   }
 
-  function get_price_html( $price_html, $product ) {
+  static function get_price_html( $price_html, $product ) {
     if($product->get_meta( '_domainname' ) == 'yes') {
       $price = max($product->get_price(), get_option('wcdnr_domain_minimum_price', 0));
       if( $price == 0 ) {
@@ -250,7 +250,7 @@ class WCDNR {
   // /**
   //  * Register TLD attribute taxonomy.
   //  */
-  // function create_attributes() {
+  // static function create_attributes() {
   //   $attributes = wc_get_attribute_taxonomies();
   //   $slugs = wp_list_pluck( $attributes, 'attribute_name' );
   //   if ( ! in_array( 'tld', $slugs ) ) {

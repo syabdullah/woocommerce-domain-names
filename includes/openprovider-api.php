@@ -14,6 +14,9 @@ class OP_API
   {
     $this->url = $url;
     $this->timeout = $timeout;
+    // $this->fetchDomains();
+    add_action( 'init', [ $this, 'fetchDomains' ] );
+
   }
   public function setDebug ($v)
   {
@@ -235,42 +238,154 @@ class OP_API
     $reply = $this->process($request);
 
     if ($error_notice && $reply->getFaultCode() != 0) {
-      wc_add_notice('<p>' . $reply->getFaultString(), 'error' );
+      // wc_add_notice('<p>' . $reply->getFaultString(), 'error' );
+      error_log($reply->getFaultString() );
     }
 
     return $reply;
   }
 
   public function get_quote($domain, $operation='create', $period = 1) {
+    if(is_array($domain)) {
+      $domainName = join('.', $domain);
+      $extension = $domain['extension'];
+      $name = $domain['name'];
+    } else {
+      $domainName = $domain;
+      $extension = preg_replace('/^.*\./', '', $domain);
+      $name = preg_replace("/\.$extension$/", '', $domain);
+    }
+    $transient_key = "wcdnr_openprovider_${operation}_price_${period}_${domainName}";
+    $price = get_transient($transient_key);
+    if(!$price) {
+      $reply = $this->request('retrievePriceDomainRequest', array(
+        'domain' => array(
+          'name' => $name,
+          'extension' => $extension,
+        ),
+        'period' => $period,
+        'operation' => $operation,
+      ));
 
-    // $cached = wp_cache_get('domain_price_' . $domain, 'wcdnr');
-    // if($period == 1 && $cached) return $cached['price']['reseller']['price'];
-    $extension = preg_replace('/^.*\./', '', $domain);
-    $name = preg_replace("/\.$extension$/", '', $domain);
-
-    $reply = $this->request('retrievePriceDomainRequest', array(
-      'domain' => array(
-        'name' => $name,
-        'extension' => $extension,
-      ),
-      'period' => $period,
-      'operation' => $operation,
-    ));
-
-    if ($reply->getFaultCode() == 0) {
-      $result = $reply->getValue();
-      $price = $result['price']['reseller']['price'];
-      if($result['isPromotion']) {
-        $regularprice = $result['membershipPrice']['reseller']['price'];
-      } else {
-        $regularprice = $price;
+      if ($reply->getFaultCode() == 0) {
+        $result = $reply->getValue();
+        $price = $result['price']['reseller']['price'];
+        if($result['isPromotion']) {
+          $price = $result['membershipPrice']['reseller']['price'];
+        }
       }
-      return $regularprice;
+      set_transient($transient_key, $price, 86400); // 5 for debug, 86400 in prod
     }
 
-    return false;
+    return $price;
   }
 
+  public function getcontact($handle = NULL) {
+    if(empty($handle)) return false;
+    $transient_key = 'wcdnr_openprovider_contact_' . $handle;
+    $contact = get_transient($transient_key);
+    if(!$contact) {
+      error_log("no cache for $handle, fetching");
+      $reply = $this->request('retrieveCustomerRequest', array(
+        'handle' => $handle,
+      ));
+      if ($reply->getFaultCode() == 0) {
+        $contact = $reply->getValue();
+      } else {
+        $contact = false;
+      }
+      set_transient($transient_key, $contact, 86400); // 5 for debug, 86400 in prod
+    }
+
+    return $contact;
+  }
+
+  public function fetchDomains($force = false) {
+    // cron disabled  for debug only, in prod we'll run this task in cron only
+    if ( defined( 'DOING_CRON' ) ) return;
+    // Let's make sure all required functions and classes exist
+    if( ! function_exists( 'wc_create_order' ) || ! function_exists( 'wcs_create_subscription' ) || ! class_exists( 'WC_Subscriptions_Product' ) ){
+      // we can't do anything without woocommerce but maybe we don't need subscription
+      return false;
+    }
+    if ( wp_doing_ajax() ) return; // this one we'll probably keep
+    if ( get_option('wcdnr_openprovider_migrate') != 'yes' ) return;
+
+    $domain_product_id = get_option('wcdnr_domain_registration_product', NULL);
+    if(! $domain_product_id) {
+      error_log('domain name product not set, cannot import domains from registry');
+      return;
+    }
+
+    $debug = array();
+
+    if ( wp_cache_get('wcdnr_fetch_domains', 'wcdnr') ) return;
+    if ( get_transient('wcdnr_fetch_domains') ) {
+      $records = get_transient('wcdnr_fetch_domains');
+    } else {
+      $batchlimit = 1000; // registrar max limit is 1000 anyway
+      $offset = 0;
+
+      $records = array();
+      while (true) {
+        $reply = $this->request('searchDomainRequest', array(
+          // 'domainNamePattern' => '',
+          // 'withAdditionalData' => true,
+          'orderBy' => 'orderDate',
+          'limit' => 1,
+          'offset' => $offset,
+        ));
+
+        if ($reply->getFaultCode() == 0) {
+          $batch = $reply->getValue()['results'];
+          if(!empty($batch)) {
+            $records = array_merge($records, $batch);
+          } else break;
+        } else break;
+        $offset = $offset + $batchlimit;
+      }
+      set_transient('wcdnr_fetch_domains', $records, 86400); // 5 for debug, 86400 in prod
+    }
+
+    foreach ($records as $record) {
+      $contact = OP_API::getcontact($record['ownerHandle']);
+      if(!$contact) continue;
+
+      $order_args = array();
+      $user = get_user_by('email', $contact['email']);
+      if($user) $domain['customer_id'] = $user->id;
+
+      $domain['domainName'] = $record['domain']['name'] . '.' . $record['domain']['extension'];
+      $domain['price'] = wcdnr_selling_price(OP_API::get_quote($record['domain'], 'renew'));
+
+      $domain['address'] = array_filter(array(
+          'first_name' => $contact['name']['firstName'],
+          'last_name'  => $contact['name']['lastName'],
+          'company'    => $contact['companyName'],
+          'email'      => $contact['email'],
+          'phone'      => join('-', $contact['phone']),
+          'address_1'  => trim($contact['address']['number'] . ' ' . $contact['address']['street']),
+          'address_2'  => NULL,
+          'city'       => $contact['address']['city'],
+          'state'      => NULL,
+          'postcode'   => $contact['address']['zipcode'],
+          'country'    => $contact['address']['country'],
+      ));
+      break; // for debug only
+    }
+
+    error_log(sprintf(
+      '%s result (%s): %s',
+      __FUNCTION__,
+      count($records), ''
+      // . "\n" . print_r($records[0], true)
+      . "\nOwner: " . print_r($contact, true)
+      . "\nDomain: " . print_r($domain, true)
+      . "\n" . join("\n", $debug),
+    ));
+
+    wp_cache_set('wcdnr_fetch_domains', true, 'wcdnr');
+  }
 }
 
 class OP_Request
@@ -614,6 +729,8 @@ class OP_Reply
         __('Domain exists', 'wcdnr'),
       );
   }
+
 }
 
 $Openprovider = new OP_API ('https://api.openprovider.eu');
+// $Openprovider->fetchDomains();
