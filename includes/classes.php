@@ -82,7 +82,7 @@ class WCDNR {
     // if($product->get_meta( '_domainname' ) != 'yes') return;
 
     if(!wcdnr_is_domain_product( wc_get_product( $post->ID ) )) return;
-    // $value = isset( $_POST['wcdnr_domain'] ) ? sanitize_text_field( $_POST['wcdnr_domain'] ) : '';
+    $value = isset( $_REQUEST['wcdnr_domain'] ) ? sanitize_text_field( $_REQUEST['wcdnr_domain'] ) : '';
     printf(
       '<div class="wcdnr-field wcdnr-field-domain-name">
         <label for="wcdnr_domain">%s</label>
