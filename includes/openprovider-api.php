@@ -68,14 +68,14 @@ class OP_API
       return false;
     }
 
-    $element = $dom->createElement('element')
-    ->appendChild($textNode);
+    $element = $dom->createElement('element');
+    $element->appendChild($textNode);
 
     if (!$element) {
       return false;
     }
 
-    @$dom->appendChild($element);
+    $dom->appendChild($element);
 
     $xml = $dom->saveXML();
 
