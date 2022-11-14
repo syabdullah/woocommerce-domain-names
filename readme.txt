@@ -68,7 +68,7 @@ Because nobody asked anything yet.
 
 == Changelog ==
 
-= Unreleased (0.1.4-dev.54) =
+= Unreleased (0.1.4-dev.63) =
 * added "From" before price
 * added input-text class to domain name field
 * fix fatal error Couldn't fetch DOMText
