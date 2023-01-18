@@ -1,8 +1,9 @@
 ## Changelog
 
-### Unreleased (0.1.4-dev.63)
+### Unreleased (0.1.4-dev.66)
 - added "From" before price
 - added input-text class to domain name field
+- fix Unknown format specifier “)” fatal error
 - fix fatal error Couldn't fetch DOMText
 - fix fatal error with recent php versions
 - fix price not displayed

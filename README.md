@@ -1,7 +1,7 @@
 # WooCommerce Domain Names (dev)
 
 ![Stable 0.1.0](https://badgen.net/badge/Stable/0.1.0/00aa00)
-![WordPress 4.5 - 6.1](https://badgen.net/badge/WordPress/4.5%20-%206.1/3858e9)
+![WordPress 4.5 - 6.1.1](https://badgen.net/badge/WordPress/4.5%20-%206.1.1/3858e9)
 ![Requires PHP 5.6](https://badgen.net/badge/PHP/5.6/7884bf)
 ![License AGPLv3 or later](https://badgen.net/badge/License/AGPLv3%20or%20later/552b55)
 

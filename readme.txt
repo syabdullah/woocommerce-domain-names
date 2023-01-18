@@ -3,7 +3,7 @@ Contributors: magicoli69
 Donate link: https://paypal.me/magicoli
 Tags: domain, dns, registrar, domain names, domain registration, woocommerce, openprovider
 Requires at least: 4.5
-Tested up to: 6.1
+Tested up to: 6.1.1
 Requires PHP: 5.6
 Stable tag: 0.1.0
 License: AGPLv3 or later
@@ -68,9 +68,10 @@ Because nobody asked anything yet.
 
 == Changelog ==
 
-= Unreleased (0.1.4-dev.63) =
+= Unreleased (0.1.4-dev.66) =
 * added "From" before price
 * added input-text class to domain name field
+* fix Unknown format specifier “)” fatal error
 * fix fatal error Couldn't fetch DOMText
 * fix fatal error with recent php versions
 * fix price not displayed

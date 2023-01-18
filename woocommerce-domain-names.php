@@ -7,7 +7,7 @@
  * Author URI:      https://magiiic.com/
  * Text Domain:     wcdnr
  * Domain Path:     /languages
- * Version:         0.1.4-dev.63
+ * Version:         0.1.4-dev.66
  *
  * @package         WCDNR
  *
