@@ -5,7 +5,7 @@ Tags: domain, dns, registrar, domain names, domain registration, woocommerce, op
 Requires at least: 4.5
 Tested up to: 6.1.1
 Requires PHP: 5.6
-Stable tag: 0.1.5
+Stable tag: 0.1.6
 License: AGPLv3 or later
 License URI: https://www.gnu.org/licenses/agpl-3.0.html
 
@@ -67,6 +67,8 @@ The current to-do list include:
 Because nobody asked anything yet.
 
 == Changelog ==
+
+= 0.1.6 =
 
 = 0.1.5 =
 * added "From" before price
