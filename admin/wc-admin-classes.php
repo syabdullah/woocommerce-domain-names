@@ -135,14 +135,14 @@ class WCDNR_Admin {
         ),
         array(
           'id' => 'wcdnr_domain_minimum_price',
-          'name' => sprintf(__('Minimum price (%s)', 'wcdnr'), get_woocommerce_currency_symbol()),
+          'name' => sprintf(__('Minimum price (%1$s)', 'wcdnr'), get_woocommerce_currency_symbol()),
           'type' => 'number',
           'custom_attributes' => array( 'min' => 0, 'size' => 2 ),
           'default' => 0,
         ),
         array(
           'id' => 'wcdnr_domain_rounding',
-          'name' => sprintf(__('Rounding (%s)', 'wcdnr'), get_woocommerce_currency_symbol()),
+          'name' => sprintf(__('Rounding (%1$s)', 'wcdnr'), get_woocommerce_currency_symbol()),
           'type' => 'number',
           'custom_attributes' => array( 'min' => 0, 'size' => 2 ),
           'default' => 0,
@@ -173,7 +173,7 @@ class WCDNR_Admin {
       update_option('wcdnr_openprovider_username', '');
       update_option('wcdnr_openprovider_hash', '');
       wp_cache_set('wcdnr_check_credentials', 'fail', 'wcdnr');
-      WC_Admin_Settings::add_error(sprintf(__('%s needs Openprovider credentials to function properly.', 'wcdnr'), WCDNR_PLUGIN_NAME));
+      WC_Admin_Settings::add_error(sprintf(__('%1$s needs Openprovider credentials to function properly.', 'wcdnr'), WCDNR_PLUGIN_NAME));
       return $value;
     }
 
