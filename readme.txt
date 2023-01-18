@@ -1,11 +1,11 @@
-=== WooCommerce Domain Names (dev) ===
+=== WooCommerce Domain Names ===
 Contributors: magicoli69
 Donate link: https://paypal.me/magicoli
 Tags: domain, dns, registrar, domain names, domain registration, woocommerce, openprovider
 Requires at least: 4.5
 Tested up to: 6.1.1
 Requires PHP: 5.6
-Stable tag: 0.1.0
+Stable tag: 0.1.5
 License: AGPLv3 or later
 License URI: https://www.gnu.org/licenses/agpl-3.0.html
 
@@ -68,18 +68,17 @@ Because nobody asked anything yet.
 
 == Changelog ==
 
-= Unreleased (0.1.4-dev.69) =
+= 0.1.5 =
 * added "From" before price
 * added input-text class to domain name field
-* updated external libraries
-* fix #4 Unknown format specifier “)” fatal error
-* fix Unknown format specifier “)” fatal error
+* fix fatal error Unknown format specifier “)” fatal error
 * fix fatal error Couldn't fetch DOMText
 * fix fatal error with recent php versions
 * fix price not displayed
 * fix empty error reason for active domains
 * fix options not included in cart total
 * don't try to validate domain if $passed value is already false
+* updated external libraries
 
 = 0.1.3.1 =
 * renamed as woocommerce-domain-names (hopefully the last rename, to match my other wc plugins naming)
