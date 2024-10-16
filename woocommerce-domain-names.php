@@ -18,14 +18,21 @@
  */
 
 define('WCDNR_PLUGIN', plugin_basename(__FILE__));
+
+// تحقق من وجود وظيفة get_plugin_data وحمل الملف المطلوب إذا لم يكن موجوداً
+if ( ! function_exists( 'get_plugin_data' ) ) {
+    require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+}
+
 $plugin_data = get_plugin_data( __FILE__ );
 define('WCDNR_PLUGIN_NAME', $plugin_data['Name']);
 
 require_once(__DIR__ . '/includes/classes.php');
 
-if(file_exists(plugin_dir_path( __FILE__ ) . 'lib/package-updater.php'))
-include_once plugin_dir_path( __FILE__ ) . 'lib/package-updater.php';
+if (file_exists(plugin_dir_path( __FILE__ ) . 'lib/package-updater.php')) {
+    include_once plugin_dir_path( __FILE__ ) . 'lib/package-updater.php';
+}
 
-if(is_admin()) {
-  require_once(__DIR__ . '/admin/wc-admin-classes.php');
+if (is_admin()) {
+    require_once(__DIR__ . '/admin/wc-admin-classes.php');
 }
